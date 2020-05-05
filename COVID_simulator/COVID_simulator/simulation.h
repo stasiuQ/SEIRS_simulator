@@ -11,7 +11,7 @@ private:
 	int numberOfAgents;
 	int initialInfected;
 	vector<Agent> agents;
-	vector<double> globalParameters;
+	vector<double> simulationParameters;
 
 public:
 	Simulation(double concentration, int m_size, int numberOfInfected);

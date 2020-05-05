@@ -16,7 +16,7 @@ private:
 	vector<double> parameters;
 
 public:
-	Agent(SEIRS_type state, int size, double r, double mob);
+	Agent(SEIRS_type state, int size, double r, double mob, vector<double> param);
 	~Agent();
 
 	void move();

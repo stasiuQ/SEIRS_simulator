@@ -1,0 +1,7 @@
+10 % dt
+1000 % size
+0.001 % concentration
+1 % Beta
+0.001 % Epsilon
+0.001 % Mu
+0.001 % Rho
