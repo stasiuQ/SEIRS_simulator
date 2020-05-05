@@ -124,10 +124,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="agent.h" />
+    <ClInclude Include="randomizer.h" />
     <ClInclude Include="simulation.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="agent.cpp" />
+    <ClCompile Include="randomizer.cpp" />
     <ClCompile Include="simulation.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
