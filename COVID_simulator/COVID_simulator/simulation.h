@@ -8,6 +8,7 @@ using namespace std;
 class Simulation {
 private:
 	int size;   // size of a system matrix
+	double concentration;
 	int numberOfAgents;
 	int initialInfected;
 	vector<Agent> agents;

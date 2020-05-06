@@ -1,5 +1,6 @@
 10 % dt
 1000 % size
+100 % radius
 0.001 % concentration
 1 % Beta
 0.001 % Epsilon

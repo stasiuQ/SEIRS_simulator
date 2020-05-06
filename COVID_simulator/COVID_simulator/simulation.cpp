@@ -2,6 +2,9 @@
 
 Simulation::Simulation(double concentration, int m_size, int numberOfInfected)
 {
+	this->size = m_size;
+	this->concentration = concentration;
+
 }
 
 Simulation::~Simulation()

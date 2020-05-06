@@ -12,7 +12,7 @@ double GlobalParameters::rho; // R -> S
 void GlobalParameters::load(string name)
 {
 	fstream ini_file;
-	double paramTable[7];    // Update when no parameter in Global changes!
+	double paramTable[8];    // Update when no parameter in Global changes!
 	ini_file.open(name, ios::in);
 	if (!ini_file.good()) {
 		cout << "Inicialization file corrupted!" << endl;
@@ -21,7 +21,7 @@ void GlobalParameters::load(string name)
 	else
 	{
 		int iterator = 0;
-		while (!ini_file.eof() && (iterator < 7))
+		while (!ini_file.eof() && (iterator < 8))
 		{
 			string my_string;
 			getline(ini_file, my_string);
@@ -36,14 +36,20 @@ void GlobalParameters::load(string name)
 		}
 		dt = paramTable[0];
 		size = paramTable[1];
-		concentration = paramTable[2];
+		radius = paramTable[2];
+		concentration = paramTable[3];
 
-		beta = paramTable[3];
-		epsilon = paramTable[4];
-		mu = paramTable[5];
-		rho = paramTable[6];
+		beta = paramTable[4];
+		epsilon = paramTable[5];
+		mu = paramTable[6];
+		rho = paramTable[7];
 
 
 		ini_file.close();
 	}
+}
+
+double GlobalParameters::get_dt()
+{
+	return dt;
 }
