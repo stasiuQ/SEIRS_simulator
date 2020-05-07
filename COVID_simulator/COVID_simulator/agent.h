@@ -19,6 +19,10 @@ public:
 	Agent(SEIRS_type state, int size, double r, double mob, vector<double> param);
 	~Agent();
 
+	double get_i();
+	double get_j();
+	double get_radius();
+
 	void move();
 	void interaction(Agent* that);
 	void update();  // corresponds to only time dependant proccesses

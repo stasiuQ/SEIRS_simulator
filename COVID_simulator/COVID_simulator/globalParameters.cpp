@@ -12,7 +12,7 @@ double GlobalParameters::rho; // R -> S
 void GlobalParameters::load(string name)
 {
 	fstream ini_file;
-	double paramTable[8];    // Update when no parameter in Global changes!
+	double paramTable[9];    // Update when no parameter in Global changes!
 	ini_file.open(name, ios::in);
 	if (!ini_file.good()) {
 		cout << "Inicialization file corrupted!" << endl;
@@ -21,7 +21,7 @@ void GlobalParameters::load(string name)
 	else
 	{
 		int iterator = 0;
-		while (!ini_file.eof() && (iterator < 8))
+		while (!ini_file.eof() && (iterator < 9))
 		{
 			string my_string;
 			getline(ini_file, my_string);
@@ -37,12 +37,13 @@ void GlobalParameters::load(string name)
 		dt = paramTable[0];
 		size = paramTable[1];
 		radius = paramTable[2];
-		concentration = paramTable[3];
+		mobility = paramTable[3];
+		concentration = paramTable[4];
 
-		beta = paramTable[4];
-		epsilon = paramTable[5];
-		mu = paramTable[6];
-		rho = paramTable[7];
+		beta = paramTable[5];
+		epsilon = paramTable[6];
+		mu = paramTable[7];
+		rho = paramTable[8];
 
 
 		ini_file.close();
@@ -52,4 +53,26 @@ void GlobalParameters::load(string name)
 double GlobalParameters::get_dt()
 {
 	return dt;
+}
+
+double GlobalParameters::get_radius()
+{
+	return radius;
+}
+
+double GlobalParameters::get_mobility()
+{
+	return mobility;
+}
+
+vector<double> GlobalParameters::get_sim_parameters()
+{
+	vector<double> sim_params;
+
+	sim_params.push_back(beta);
+	sim_params.push_back(epsilon);
+	sim_params.push_back(mu);
+	sim_params.push_back(rho);
+	
+	return sim_params;
 }

@@ -4,6 +4,7 @@
 #include <fstream>
 #include <iostream>
 #include <sstream>
+#include <vector>
 
 using namespace std;
 
@@ -13,6 +14,7 @@ private:
 	static double dt;
 	static double size;
 	static double radius;
+	static double mobility;
 	static double concentration;
 	
 	//Epidemiological parameters
@@ -24,5 +26,8 @@ private:
 public:
 	static void load(string name);
 	static double get_dt();
+	static double get_radius();
+	static double get_mobility();
+	static vector<double> get_sim_parameters();
 
 };

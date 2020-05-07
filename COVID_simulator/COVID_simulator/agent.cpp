@@ -17,6 +17,21 @@ Agent::~Agent()
 {
 }
 
+double Agent::get_i()
+{
+	return this->i;
+}
+
+double Agent::get_j()
+{
+	return this->j;
+}
+
+double Agent::get_radius()
+{
+	return this->radius;
+}
+
 void Agent::move()
 {
 	double di = (Randomizer::randomize() - 0.5) * mobility * GlobalParameters::get_dt();
