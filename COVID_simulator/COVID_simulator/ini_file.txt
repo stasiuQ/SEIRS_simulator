@@ -1,9 +1,9 @@
-10 % dt
-1000 % size
-100 % radius
+1.0 % dt
+100.0 % size
+2.0 % radius
 0.5 % mobility
-0.001 % concentration
-1 % Beta
-0.001 % Epsilon
+0.0 % concentration
+0.8 % Beta
+0.05 % Epsilon
 0.001 % Mu
 0.001 % Rho

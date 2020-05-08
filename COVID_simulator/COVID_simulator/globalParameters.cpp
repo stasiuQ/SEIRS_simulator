@@ -2,6 +2,8 @@
 
 double GlobalParameters::dt;
 double GlobalParameters::size;
+double GlobalParameters::radius;
+double GlobalParameters::mobility;
 double GlobalParameters::concentration;
 
 double GlobalParameters::beta; // S -> E

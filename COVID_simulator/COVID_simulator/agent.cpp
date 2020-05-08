@@ -13,6 +13,17 @@ Agent::Agent(SEIRS_type state, int size, double r, double mob, vector<double> pa
 	this->parameters = param;
 }
 
+Agent::Agent()
+{
+	this->type = SEIRS_type::S;
+	this->m_size = 0;
+	this->radius = 0.;
+	this->mobility = 0.;
+	this->i = 0.;
+	this->j = 0.;
+	this->parameters = vector<double>();
+}
+
 Agent::~Agent()
 {
 }
@@ -30,6 +41,11 @@ double Agent::get_j()
 double Agent::get_radius()
 {
 	return this->radius;
+}
+
+SEIRS_type Agent::get_type()
+{
+	return this->type;
 }
 
 void Agent::move()
@@ -64,13 +80,14 @@ void Agent::move()
 
 void Agent::interaction(Agent * that)   // S -> E interactions
 {
+	double rand;
 	switch (this->type)
 	{
 	case SEIRS_type::S:
 		switch (that->type)
 		{
 		case SEIRS_type::I:
-			double rand = Randomizer::randomize();
+			rand = Randomizer::randomize();
 			if (rand < this->parameters[0])  // susceptible become exposed
 			{
 				this->type = SEIRS_type::E;
@@ -85,7 +102,7 @@ void Agent::interaction(Agent * that)   // S -> E interactions
 		switch (that->type)
 		{
 		case SEIRS_type::S:
-			double rand = Randomizer::randomize();
+			rand = Randomizer::randomize();
 			if (rand < that->parameters[0])  // susceptible become exposed
 			{
 				that->type = SEIRS_type::E;
@@ -103,10 +120,11 @@ void Agent::interaction(Agent * that)   // S -> E interactions
 
 void Agent::update()   // only time dependent processes
 {
+	double rand;
 	switch (this->type)
 	{
 	case SEIRS_type::E:
-		double rand = Randomizer::randomize();
+		rand = Randomizer::randomize();
 		if (rand < this->parameters[1])  // E -> I
 		{
 			this->type = SEIRS_type::I;
@@ -114,7 +132,7 @@ void Agent::update()   // only time dependent processes
 		break;
 
 	case SEIRS_type::I:
-		double rand = Randomizer::randomize();
+		rand = Randomizer::randomize();
 		if (rand < this->parameters[2])  // I -> R
 		{
 			this->type = SEIRS_type::R;
@@ -122,7 +140,7 @@ void Agent::update()   // only time dependent processes
 		break;
 
 	case SEIRS_type::R:
-		double rand = Randomizer::randomize();
+		rand = Randomizer::randomize();
 		if (rand < this->parameters[3])  // R -> S
 		{
 			this->type = SEIRS_type::S;
