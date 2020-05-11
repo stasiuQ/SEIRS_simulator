@@ -67,6 +67,16 @@ double GlobalParameters::get_mobility()
 	return mobility;
 }
 
+double GlobalParameters::get_concentration()
+{
+	return concentration;
+}
+
+int GlobalParameters::get_size()
+{
+	return static_cast<int>(size);
+}
+
 vector<double> GlobalParameters::get_sim_parameters()
 {
 	vector<double> sim_params;

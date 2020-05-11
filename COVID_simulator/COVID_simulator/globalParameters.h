@@ -28,6 +28,8 @@ public:
 	static double get_dt();
 	static double get_radius();
 	static double get_mobility();
+	static double get_concentration();
+	static int get_size();
 	static vector<double> get_sim_parameters();
 
 };

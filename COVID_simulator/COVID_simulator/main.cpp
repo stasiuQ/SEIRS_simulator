@@ -9,9 +9,9 @@ int main()
 {
 	Randomizer::init();
 	GlobalParameters::load("ini_file.txt");
-	Simulation my_simulation(0.2, 100, 2);
+	Simulation my_simulation(GlobalParameters::get_concentration(), GlobalParameters::get_size(), 2);
 
-	my_simulation.simulate(1000);
+	my_simulation.simulate(10000);
 
 	return 0;
 }
