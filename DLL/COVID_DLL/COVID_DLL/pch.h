@@ -15,5 +15,7 @@
 
 #include "Bridge.h"
 #include "Communicator.h"
+#include "simulation.h"
+#include "globalParameters.h"
 
 #endif //PCH_H

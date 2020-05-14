@@ -19,7 +19,7 @@ extern "C" {
 		for (int i = 1; i < commonParams[0]; i++) {   // reading parameters from common memory
 			instructions.push_back(commonParams[i]);
 		}
-		std::vector<std::vector<double>> simulationState = Communicator::read(&instructions, &parameters);  //contains each agents state (i, j, type) and the last element provides statistics
+		std::vector<std::vector<double>> simulationState = Communicator::read(instructions, parameters);  //contains each agents state (i, j, type) and the last element provides statistics
 		
 		int iterator = 1;
 		for (int i = 0; i < (simulationState.size() - 1); i++) {  // updating commonAgentsState in shared memory (without last element of a vector)
