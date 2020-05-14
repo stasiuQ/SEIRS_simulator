@@ -13,10 +13,10 @@ extern "C" {
 	__declspec(dllexport) void send(bool* commonInstr, double* commonParams, double* commonAgentsState, int* commonStats) {
 		std::vector<bool> instructions;
 		std::vector<double> parameters;
-		for (int i = 1; i < 5; i++) {   // reading instructions from common memory
+		for (int i = 0; i < 4; i++) {   // reading instructions from common memory
 			instructions.push_back(commonInstr[i]);
 		}
-		for (int i = 1; i < commonParams[0]; i++) {   // reading parameters from common memory
+		for (int i = 1; i < static_cast<int>(commonParams[0]); i++) {   // reading parameters from common memory
 			instructions.push_back(commonParams[i]);
 		}
 		std::vector<std::vector<double>> simulationState = Communicator::read(instructions, parameters);  //contains each agents state (i, j, type) and the last element provides statistics
