@@ -1,3 +1,4 @@
+#include "pch.h"
 #include "simulation.h"
 #include "globalParameters.h"
 
@@ -116,4 +117,47 @@ void Simulation::updateStatistics()
 void Simulation::printStatistics()
 {
 	this->outputFile << no_S << "	" << no_E << "	" << no_I << "	" << no_R << endl;
+}
+
+vector<vector<double>> Simulation::outputInterface()
+{
+	vector<vector<double>> outputVector = vector<vector<double>>();
+	for (int i = 0; i < this->numberOfAgents; i++) {
+		vector<double> tempVector = vector<double>();
+		tempVector.push_back(agents[i].get_i());   // firstly pushing coordinates
+		tempVector.push_back(agents[i].get_j());
+
+		switch (agents[i].get_type())
+		{
+		case SEIRS_type::S:
+			tempVector.push_back(0.);
+			break;
+
+		case SEIRS_type::E:
+			tempVector.push_back(1.);
+			break;
+
+		case SEIRS_type::I:
+			tempVector.push_back(2.);
+			break;
+
+		case SEIRS_type::R:
+			tempVector.push_back(3.);
+			break;
+
+		default:
+			break;
+		}
+
+		outputVector.push_back(tempVector);
+	}
+	vector<double> tempVector = vector<double>();
+	tempVector.push_back(no_S);
+	tempVector.push_back(no_E);
+	tempVector.push_back(no_I);
+	tempVector.push_back(no_R);
+	tempVector.push_back(step);
+	outputVector.push_back(tempVector);
+
+	return outputVector;
 }

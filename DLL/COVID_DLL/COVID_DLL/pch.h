@@ -6,6 +6,7 @@
 
 #ifndef PCH_H
 #define PCH_H
+#define _USE_MATH_DEFINES
 
 // w tym miejscu dodaj nagłówki, które mają być wstępnie kompilowane
 #include "framework.h"
@@ -17,5 +18,7 @@
 #include "Communicator.h"
 #include "simulation.h"
 #include "globalParameters.h"
+#include "agents.h"
+#include "randomizer.h"
 
 #endif //PCH_H

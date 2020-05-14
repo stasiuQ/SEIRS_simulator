@@ -1,3 +1,4 @@
+#include "pch.h"
 #include "globalParameters.h"
 
 double GlobalParameters::dt;

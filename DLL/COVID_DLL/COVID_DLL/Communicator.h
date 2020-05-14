@@ -1,7 +1,5 @@
 #pragma once
-#ifndef COMMUNICATOR_H
-#define COMMUNICATOR_H
-
+#include "simulation.h"
 #include <string>
 #include <vector>
 
@@ -12,5 +10,3 @@ public:
 	static std::vector<std::vector<double>> read(std::vector<bool>& internalInstruction, std::vector<double>& internalParameters);
 	static void loadParameters(std::vector<double>& internalParameters);
 };
-
-#endif

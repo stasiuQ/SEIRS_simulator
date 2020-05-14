@@ -56,9 +56,6 @@
     <ClCompile Include="Communicator.cpp">
       <Filter>Pliki źródłowe</Filter>
     </ClCompile>
-    <ClCompile Include="main.cpp">
-      <Filter>Pliki źródłowe</Filter>
-    </ClCompile>
     <ClCompile Include="agent.cpp">
       <Filter>Pliki źródłowe\MODEL</Filter>
     </ClCompile>

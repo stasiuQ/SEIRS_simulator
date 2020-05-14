@@ -1,3 +1,4 @@
+#include "pch.h"
 #include "randomizer.h"
 
 mt19937 Randomizer::generator;

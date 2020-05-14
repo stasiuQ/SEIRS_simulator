@@ -1,6 +1,5 @@
 #pragma once
 
-#define _USE_MATH_DEFINES
 
 #include <cmath>
 #include <vector>
@@ -35,4 +34,5 @@ public:
 	bool detectContact(Agent* a1, Agent* a2);
 	void updateStatistics();
 	void printStatistics();
+	vector<vector<double>> outputInterface();
 };

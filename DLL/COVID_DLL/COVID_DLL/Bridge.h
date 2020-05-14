@@ -1,5 +1,5 @@
 #pragma once
 
 extern "C" {
-	__declspec(dllexport) void send(bool* instr, double* parameters, double* simState);
+	__declspec(dllexport) void send(bool* commonInstr, double* commonParams, double* commonAgentsState, int* commonStats);
 }
