@@ -7,7 +7,6 @@ using namespace std;
 
 int main()
 {
-	Randomizer::init();
 	GlobalParameters::load("ini_file.txt");
 	Simulation my_simulation(GlobalParameters::get_concentration(), GlobalParameters::get_size(), 2);
 

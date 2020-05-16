@@ -9,8 +9,8 @@ namespace Interface_tester
 {
     class Program
     {
-        [DllImport("COVID_DLL.dll", EntryPoint = "send", CallingConvention = CallingConvention.StdCall)]
-        private static extern void SendDLL(bool[] commonInstr, double[] commonParams, double[] commonAgentsState, int[] commonStats);
+        [DllImport("COVID_DLL.dll", EntryPoint = "send", CallingConvention = CallingConvention.Cdecl)]
+        private static extern int SendDLL(bool[] commonInstr, double[] commonParams, double[] commonAgentsState, int[] commonStats);
 
         static void Main(string[] args)
         {
@@ -20,18 +20,18 @@ namespace Interface_tester
             double[] agentState = new double[size];
             int[] stats = new int[] {6, 0, 0, 0, 0, 0};
 
-            SendDLL(instructions, parameters, agentState, stats);   // Initializing simulation
+            System.Console.WriteLine(SendDLL(instructions, parameters, agentState, stats));   // Initializing simulation
             instructions[0] = false;
             instructions[2] = true;
 
             for (int i = 0; i < 100; i++)  // proceeding simulation
             {
-                SendDLL(instructions, parameters, agentState, stats);
+                System.Console.WriteLine(SendDLL(instructions, parameters, agentState, stats));
             }
 
             instructions[2] = false;
             instructions[1] = true;
-            SendDLL(instructions, parameters, agentState, stats);
+            Console.WriteLine(SendDLL(instructions, parameters, agentState, stats));
 
             for (int i = 0; i < 6; i++)
             {

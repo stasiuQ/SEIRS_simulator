@@ -17,7 +17,7 @@ std::vector<std::vector<double>> Communicator::read(std::vector<bool>& internalI
 	else if (internalInstruction[2] == true) {   //proceeding simulation
 		currentSimulation->simulate(1);
 	}
-	else if (internalParameters[3] == true) {   // changing parameters, no need to change stats
+	else if (internalInstruction[3] == true) {   // changing parameters, no need to change stats
 		loadParameters(internalParameters);
 		return std::vector<std::vector<double>>();
 	}

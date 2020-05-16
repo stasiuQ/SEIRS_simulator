@@ -58,6 +58,7 @@ void Simulation::simulate(int numberOfSteps)
 			agents[j].update();
 		}
 		
+		this->step++;
 		this->updateStatistics();
 	}
 
@@ -123,9 +124,7 @@ vector<vector<double>> Simulation::outputInterface()
 {
 	vector<vector<double>> outputVector = vector<vector<double>>();
 	for (int i = 0; i < this->numberOfAgents; i++) {
-		vector<double> tempVector = vector<double>();
-		tempVector.push_back(agents[i].get_i());   // firstly pushing coordinates
-		tempVector.push_back(agents[i].get_j());
+		vector<double> tempVector = vector<double>{ agents[i].get_i(), agents[i].get_j() };   // firstly pushing coordinates
 
 		switch (agents[i].get_type())
 		{
