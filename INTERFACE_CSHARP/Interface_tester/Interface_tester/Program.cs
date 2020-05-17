@@ -30,11 +30,11 @@ namespace Interface_tester
 
         static void Main(string[] args)
         {
-            int size = 955;
+            int size = 955;   // 3x number of agents + 1, to be calculated from concentration.
             int instructions = 0;
             double[] parameters = new double[] { 11, 1, 100, 2, 0.75, 0.4, 2, 0.9, 0.05, 0.005, 0 };
             double[] agentState = new double[size];
-            int[] stats = new int[] { 6, 0, 0, 0, 0, 0 };
+            int[] stats = new int[] { 6, 0, 0, 0, 0, 0 };   // size, S, E, I, R, step
 
             SendDLL(instructions, parameters, agentState, stats);   // Initializing simulation
 
