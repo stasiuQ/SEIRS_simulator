@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Pliki źródłowe">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Pliki nagłówkowe">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Pliki zasobów">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Pliki źródłowe\MODEL">
+      <UniqueIdentifier>{6102231f-46e5-4c13-921b-de7dc60eae68}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pliki nagłówkowe\MODEL">
+      <UniqueIdentifier>{b208cf99-c7d6-47f1-9a16-161fcafa503c}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="framework.h">
+      <Filter>Pliki nagłówkowe</Filter>
+    </ClInclude>
+    <ClInclude Include="pch.h">
+      <Filter>Pliki nagłówkowe</Filter>
+    </ClInclude>
+    <ClInclude Include="Bridge.h">
+      <Filter>Pliki nagłówkowe</Filter>
+    </ClInclude>
+    <ClInclude Include="Communicator.h">
+      <Filter>Pliki nagłówkowe</Filter>
+    </ClInclude>
+    <ClInclude Include="debugger.h">
+      <Filter>Pliki nagłówkowe</Filter>
+    </ClInclude>
+    <ClInclude Include="agent.h">
+      <Filter>Pliki nagłówkowe\MODEL</Filter>
+    </ClInclude>
+    <ClInclude Include="globalParameters.h">
+      <Filter>Pliki nagłówkowe\MODEL</Filter>
+    </ClInclude>
+    <ClInclude Include="randomizer.h">
+      <Filter>Pliki nagłówkowe\MODEL</Filter>
+    </ClInclude>
+    <ClInclude Include="simulation.h">
+      <Filter>Pliki nagłówkowe\MODEL</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="dllmain.cpp">
+      <Filter>Pliki źródłowe</Filter>
+    </ClCompile>
+    <ClCompile Include="pch.cpp">
+      <Filter>Pliki źródłowe</Filter>
+    </ClCompile>
+    <ClCompile Include="Bridge.cpp">
+      <Filter>Pliki źródłowe</Filter>
+    </ClCompile>
+    <ClCompile Include="Communicator.cpp">
+      <Filter>Pliki źródłowe</Filter>
+    </ClCompile>
+    <ClCompile Include="agent.cpp">
+      <Filter>Pliki źródłowe\MODEL</Filter>
+    </ClCompile>
+    <ClCompile Include="globalParameters.cpp">
+      <Filter>Pliki źródłowe\MODEL</Filter>
+    </ClCompile>
+    <ClCompile Include="randomizer.cpp">
+      <Filter>Pliki źródłowe\MODEL</Filter>
+    </ClCompile>
+    <ClCompile Include="simulation.cpp">
+      <Filter>Pliki źródłowe\MODEL</Filter>
+    </ClCompile>
+    <ClCompile Include="debugger.cpp">
+      <Filter>Pliki źródłowe</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

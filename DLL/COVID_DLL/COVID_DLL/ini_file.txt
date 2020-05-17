@@ -1,0 +1,10 @@
+1.0 % dt
+100.0 % size
+2.0 % radius
+0.75 % mobility
+0.4 % concentration
+2  % initialInfected
+0.9 % Beta
+0.05 % Epsilon
+0.005 % Mu
+0.000 % Rho
