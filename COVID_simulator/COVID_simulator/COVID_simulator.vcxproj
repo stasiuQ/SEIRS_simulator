@@ -125,12 +125,14 @@
   <ItemGroup>
     <ClInclude Include="agent.h" />
     <ClInclude Include="globalParameters.h" />
+    <ClInclude Include="home.h" />
     <ClInclude Include="randomizer.h" />
     <ClInclude Include="simulation.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="agent.cpp" />
     <ClCompile Include="globalParameters.cpp" />
+    <ClCompile Include="home.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="randomizer.cpp" />
     <ClCompile Include="simulation.cpp" />

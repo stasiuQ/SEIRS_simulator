@@ -1,5 +1,6 @@
 #include "simulation.h"
 #include "globalParameters.h"
+#include "randomizer.h"
 
 using namespace std;
 
@@ -12,7 +13,7 @@ Simulation::Simulation(double concentration, int m_size, int numberOfInfected)
 	this->agents = vector<Agent>(this->numberOfAgents);
 	this->simulationParameters = GlobalParameters::get_sim_parameters();
 	
-	for (int i = 0; i < numberOfInfected; i++) // creating agents, fisrt infected, then susceptible
+	for (int i = 0; i < numberOfInfected; i++) // creating agents, first infected, then susceptible
 	{
 		Agent agent = Agent(SEIRS_type::I, m_size, GlobalParameters::get_radius(), GlobalParameters::get_mobility(), this->simulationParameters);
 		this->agents[i] = agent;
@@ -23,6 +24,10 @@ Simulation::Simulation(double concentration, int m_size, int numberOfInfected)
 		this->agents[i] = agent;
 	}
 
+	/// TESTING ONLY!!!
+	wearMasks();
+	initializeCouriers();
+
 	this->outputFile.open("output_data.txt", ios::out);
 	this->outputFile << "S" << "	" << "E" << "	" << "I" << "	" << "R" << endl;
 }
@@ -30,6 +35,29 @@ Simulation::Simulation(double concentration, int m_size, int numberOfInfected)
 Simulation::~Simulation()
 {
 	this->outputFile.close();
+}
+
+void Simulation::wearMasks()
+{
+	for (int i = 0; i < this->numberOfAgents; i++)
+	{
+		double rand = Randomizer::randomize();
+		if (rand < wearingMaskProbability)
+		{
+			this->agents[i].set_radius(radiusModifier * GlobalParameters::get_radius());
+			this->agents[i].set_beta(spreadingModifier * this->simulationParameters[0]);
+		}
+	}
+}
+
+void Simulation::initializeCouriers()
+{
+	for (int i = 0; i < this->numberOfAgents; i++)
+	{
+		double rand = Randomizer::randomize();
+		if (rand < beingCourierProbability)
+			this->agents[i].set_mobility(mobilityModifier * GlobalParameters::get_mobility());
+	}
 }
 
 void Simulation::simulate(int numberOfSteps)
@@ -59,7 +87,6 @@ void Simulation::simulate(int numberOfSteps)
 		
 		this->updateStatistics();
 	}
-
 }
 
 bool Simulation::detectContact(Agent * a1, Agent * a2)
