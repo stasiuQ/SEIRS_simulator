@@ -5,39 +5,54 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
+/*
+Instruction for int instructions:
+0 - creating a simulation
+1 - deleting a simulation
+2 - proceeding a simulation
+3 - changing parameters
+
+
+Every common tab has a structure like this:
+1st element - size of a tab
+and others - partcular values
+
+*/
+
+
+
 namespace Interface_tester
 {
     class Program
     {
         [DllImport("COVID_DLL.dll", EntryPoint = "send", CallingConvention = CallingConvention.Cdecl)]
-        private static extern int SendDLL(bool[] commonInstr, double[] commonParams, double[] commonAgentsState, int[] commonStats);
+        private static extern void SendDLL(int commonInstr, double[] commonParams, double[] commonAgentsState, int[] commonStats);
 
         static void Main(string[] args)
         {
             int size = 955;
-            bool[] instructions = new bool[] {true, false, false, false };
-            double[] parameters = new double[] {11, 1, 100, 2, 0.75, 0.4, 2, 0.9, 0.05, 0.005, 0};
+            int instructions = 0;
+            double[] parameters = new double[] { 11, 1, 100, 2, 0.75, 0.4, 2, 0.9, 0.05, 0.005, 0 };
             double[] agentState = new double[size];
-            int[] stats = new int[] {6, 0, 0, 0, 0, 0};
+            int[] stats = new int[] { 6, 0, 0, 0, 0, 0 };
 
-            System.Console.WriteLine(SendDLL(instructions, parameters, agentState, stats));   // Initializing simulation
-            instructions[0] = false;
-            instructions[2] = true;
+            SendDLL(instructions, parameters, agentState, stats);   // Initializing simulation
+
+            instructions = 2;
 
             for (int i = 0; i < 100; i++)  // proceeding simulation
             {
-                System.Console.WriteLine(SendDLL(instructions, parameters, agentState, stats));
+                SendDLL(instructions, parameters, agentState, stats);
             }
 
-            instructions[2] = false;
-            instructions[1] = true;
-            Console.WriteLine(SendDLL(instructions, parameters, agentState, stats));
+            instructions = 1;
+
+            SendDLL(instructions, parameters, agentState, stats);
 
             for (int i = 0; i < 6; i++)
             {
                 System.Console.WriteLine(stats[i]);
             }
-
         }
     }
 }

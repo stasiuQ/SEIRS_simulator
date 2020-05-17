@@ -3,24 +3,29 @@
 
  Simulation* Communicator::currentSimulation;
 
-std::vector<std::vector<double>> Communicator::read(std::vector<bool>& internalInstruction, std::vector<double>& internalParameters) {
+std::vector<std::vector<double>> Communicator::read(int internalInstructions, std::vector<double>& internalParameters) {
 	/* Reading instructions for simulation */
-	if (internalInstruction[0] == true) {  // creating new simulation, have to load parameters too
+	switch (internalInstructions)
+	{
+	case 0:   // creating new simulation, have to load parameters too
 		Randomizer::init();
 		loadParameters(internalParameters);
 		currentSimulation = new Simulation(GlobalParameters::get_concentration(), GlobalParameters::get_size(), GlobalParameters::get_initialInfected());
-	}
-	else if (internalInstruction[1] == true) {   // deleting an existing simulation , need to return an empty vector then
+		break;
+	case 1:  // deleting simulation
 		delete currentSimulation;
 		return std::vector<std::vector<double>>();
-	}
-	else if (internalInstruction[2] == true) {   //proceeding simulation
+	case 2:   // proceeding simulation
 		currentSimulation->simulate(1);
-	}
-	else if (internalInstruction[3] == true) {   // changing parameters, no need to change stats
+		break;
+	case 3:     // changing parameters, no need to return statistics
 		loadParameters(internalParameters);
 		return std::vector<std::vector<double>>();
+	default:
+		return std::vector<std::vector<double>>();
+		break;
 	}
+
 	return currentSimulation->outputInterface();
 }
 

@@ -16,6 +16,9 @@
     <Filter Include="Pliki źródłowe\MODEL">
       <UniqueIdentifier>{6102231f-46e5-4c13-921b-de7dc60eae68}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Pliki nagłówkowe\MODEL">
+      <UniqueIdentifier>{b208cf99-c7d6-47f1-9a16-161fcafa503c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -30,17 +33,20 @@
     <ClInclude Include="Communicator.h">
       <Filter>Pliki nagłówkowe</Filter>
     </ClInclude>
+    <ClInclude Include="debugger.h">
+      <Filter>Pliki nagłówkowe</Filter>
+    </ClInclude>
     <ClInclude Include="agent.h">
-      <Filter>Pliki źródłowe\MODEL</Filter>
+      <Filter>Pliki nagłówkowe\MODEL</Filter>
     </ClInclude>
     <ClInclude Include="globalParameters.h">
-      <Filter>Pliki źródłowe\MODEL</Filter>
+      <Filter>Pliki nagłówkowe\MODEL</Filter>
     </ClInclude>
     <ClInclude Include="randomizer.h">
-      <Filter>Pliki źródłowe\MODEL</Filter>
+      <Filter>Pliki nagłówkowe\MODEL</Filter>
     </ClInclude>
     <ClInclude Include="simulation.h">
-      <Filter>Pliki źródłowe\MODEL</Filter>
+      <Filter>Pliki nagłówkowe\MODEL</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -67,6 +73,9 @@
     </ClCompile>
     <ClCompile Include="simulation.cpp">
       <Filter>Pliki źródłowe\MODEL</Filter>
+    </ClCompile>
+    <ClCompile Include="debugger.cpp">
+      <Filter>Pliki źródłowe</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

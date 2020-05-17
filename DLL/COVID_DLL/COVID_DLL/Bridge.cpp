@@ -1,7 +1,14 @@
 #include "pch.h"
 #include "Bridge.h"
+#include "debugger.h"
  
 /*
+Instruction for int instructions:
+0 - creating a simulation
+1 - deleting a simulation
+2 - proceeding a simulation
+3 - changing parameters
+
 
 Every common tab has a structure like this:
 1st element - size of a tab
@@ -10,17 +17,15 @@ and others - partcular values
 */
 
 extern "C" {
-	int check = 0;
-	__declspec(dllexport) int send(bool* commonInstr, double* commonParams, double* commonAgentsState, int* commonStats) {
-		std::vector<bool> instructions;
+	
+	__declspec(dllexport) void send(int commonInstr, double* commonParams, double* commonAgentsState, int* commonStats) {
 		std::vector<double> parameters;
-		for (int i = 0; i < 4; i++) {   // reading instructions from common memory
-			instructions.push_back(commonInstr[i]);
-		}
+
 		for (int i = 1; i < static_cast<int>(commonParams[0]); i++) {   // reading parameters from common memory
 			parameters.push_back(commonParams[i]);
 		}
-		std::vector<std::vector<double>> simulationState = Communicator::read(instructions, parameters);  //contains each agents state (i, j, type) and the last element provides statistics
+
+		std::vector<std::vector<double>> simulationState = Communicator::read(commonInstr, parameters);  //contains each agents state (i, j, type) and the last element provides statistics
 		
 		if (simulationState.size() > 1)   // if it is = 0;1 then we dont have to update anything in the shared memory (deletion and changing parameters case) 
 		{
@@ -37,7 +42,6 @@ extern "C" {
 			}
 		}
 
-		return check++;
 	}
 
 
