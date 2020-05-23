@@ -13,12 +13,15 @@ namespace Seirs
         [SerializeField] private Material blueMaterial;
         [SerializeField] private Material greenMaterial;
         [SerializeField] private Material yellowMaterial;
+        [SerializeField] private Vector3 baseScale = new Vector3(0.9f, 0.9f, 0.9f);
+
 
         public int Id { get; set; }
         public Material RedMaterial { get => redMaterial; set => redMaterial = value; }
         public Material BlueMaterial { get => blueMaterial; set => blueMaterial = value; }
         public Material GreenMaterial { get => greenMaterial; set => greenMaterial = value; }
         public Material YellowMaterial { get => yellowMaterial; set => yellowMaterial = value; }
+        public Vector3 BaseScale { get => baseScale; set => baseScale = value; }
 
         public void SetPosition(float x, float y, float z = 0)
         {
@@ -27,7 +30,7 @@ namespace Seirs
 
         public void SetRadius(float r)
         {
-            transform.localScale = Vector3.one * r;
+            transform.localScale = baseScale * r;
         }
 
         public void SetColor(State s)
