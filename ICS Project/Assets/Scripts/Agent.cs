@@ -23,7 +23,7 @@ namespace Seirs
         public Material YellowMaterial { get => yellowMaterial; set => yellowMaterial = value; }
         public Vector3 BaseScale { get => baseScale; set => baseScale = value; }
 
-        public void SetPosition(float x, float y, float z = 0)
+        public void SetPosition(float x, float z, float y = 0)
         {
             transform.position = new Vector3(x, y, z);
         }
@@ -40,7 +40,6 @@ namespace Seirs
             switch (s)
             {
                 case State.S:
-                    Debug.Log("green");
                     rend.material = greenMaterial;
                     break;
                 case State.E:
