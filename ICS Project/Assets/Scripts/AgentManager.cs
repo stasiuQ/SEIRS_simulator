@@ -32,7 +32,7 @@ namespace Seirs
 
         public void OnNextSimStep(double[] agentState, float r)
         {
-            Debug.Log(agentState.Length);
+            //Debug.Log(agentState.Length);
             var id = 0;
             for (var i = 1; i < agentState.Length; i += 3)
             {

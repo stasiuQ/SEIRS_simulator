@@ -4,11 +4,9 @@ using UnityEngine;
 
 public class ChartManager : MonoBehaviour
 {
-
+    public Grid Grid;
     public void OnNextCharStep(int[] stats)
-    {
-        // add new stats for the chart
-    }
+    {    }
 
     public void Awake()
     {

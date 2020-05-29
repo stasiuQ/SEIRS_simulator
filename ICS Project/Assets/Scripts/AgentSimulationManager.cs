@@ -1,12 +1,16 @@
 ﻿using Seirs;
+using Seirs.Models;
+using Seirs.UI.Inputs;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class AgentSimulationManager : MonoBehaviour
 {
@@ -17,22 +21,29 @@ public class AgentSimulationManager : MonoBehaviour
     public static event Action<double[], float> OnNextStep;
     public static event Action<int[]> OnChartUpdate;
 
-    public double[] Parameters { get => parameters; set { parameters = value; SetPlaneScale(); } }
-    public int[] Stats { get => stats; private set => stats = value; }
+    public int[] Stats { get; set;} = { 6, 0, 0, 0, 0, 0 };
     public int StepsPerSec { get => stepsPerSec; set { stepsPerSec = value; waitTime = 1.0 / stepsPerSec; }}
     public int AgentsCount { get => agentsCount; set { agentsCount = value; size = (agentsCount * 3) + 1; } }
     public Transform Plane { get => plane; set => plane = value; }
 
     private int agentsCount;
-    private const int radiusIndex = 3;
-    private double[] parameters = { 11, 1, 100, 2, 0.75, 0.4, 2, 0.9, 0.05, 0.005, 0 };
     private int size = 955;
     private double[] agentState;
-    private int[] stats = { 6, 0, 0, 0, 0, 0 };
-    private bool doRun = false;
     private int stepsPerSec = 20;
     private double waitTime;
     private double currentTime=0;
+
+    private void Start()
+    {
+        SetDelegates();
+    }
+
+    private void SetDelegates()
+    {
+        Globals.StartMethod = StartPauseSimulation;
+        Globals.ClearMethod = ClearSimulation;
+        //Globals.PauseMethod = PauseSimulation;
+    }
 
     private void Awake()
     {
@@ -43,52 +54,61 @@ public class AgentSimulationManager : MonoBehaviour
 
     private void SetPlaneScale()
     {
-        var scale = (float)parameters[2] / 10f + 0.5f;
+        var scale = (float)Globals.Parameters.Size / 10f + 0.5f;
         plane.localScale = new Vector3(scale, 1, scale);
     }
 
-    public void PauseSimulation()
+    public void StartPauseSimulation()
     {
-        doRun = false;
+        Debug.Log("StartPauseSimulation");
+        if(Globals.IsCleared)
+        {
+            CreateSymulation();
+        }
+
+        if(!Globals.State)
+        {
+            ChangeParameters();
+            ProceedSimulation();
+        }
+        Globals.State = !Globals.State;
     }
 
-    public void ContinueSimulation()
-    {
-        doRun = true;
-    }
-
-    private void Start()
-    {
-        StartSimulation();
-    }
     private void Update()
     {
         // proceed simulation after waitTime
         currentTime += Time.deltaTime;
-        if (currentTime > waitTime && doRun)
+        if (currentTime > waitTime && Globals.State)
         {
             ProceedSimulation();
             currentTime = 0;
         }
     }
-
-    public void StartSimulation()
+    private void CreateSymulation()
     {
-        SendDLL((int)Instruction.CreateSimulation, parameters, agentState, stats);   // Initializing simulation
-        doRun = true;
+        SendDLL(Instruction.CreateSimulation.ToInt(), Globals.Parameters.ToDoubleArray(), agentState, Stats);
+        Globals.IsCleared = false;
+    }
+
+    public void ClearSimulation()
+    {
+        SendDLL(Instruction.DeleteSimulation.ToInt(), Globals.Parameters.ToDoubleArray(), agentState, Stats);   // Clearing simulation
+        Globals.State = false;
+        Globals.IsCleared = true;
     }
 
     public void ProceedSimulation()
     {
-        SendDLL((int)Instruction.ProceedSimulation, parameters, agentState, stats);
-        OnNextStep?.Invoke(agentState, (float)parameters[radiusIndex]);
-        OnChartUpdate?.Invoke(stats);
+        
+        SendDLL(Instruction.ProceedSimulation.ToInt(), Globals.Parameters.ToDoubleArray(), agentState, Stats);
+        OnNextStep?.Invoke(agentState, (float)Globals.Parameters.Radius);
+        OnChartUpdate?.Invoke(Stats);
     }
-    public enum Instruction
+
+    public void ChangeParameters()
     {
-        CreateSimulation = 0,
-        DeleteSimulation = 1,
-        ProceedSimulation = 2,
-        ChangeParameters = 3
+        SendDLL(Instruction.ChangeParameters.ToInt(), Globals.Parameters.ToDoubleArray(), agentState, Stats);
     }
+
 }
+
