@@ -259,3 +259,7 @@ paket-files/
 # Python Tools for Visual Studio (PTVS)
 __pycache__/
 *.pyc
+*.bin
+ICS Project/Library
+ICS Project/Assembly-CSharp.csproj
+ICS Project/ICS Project.sln
