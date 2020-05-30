@@ -8,6 +8,7 @@ Agent::Agent(SEIRS_type state, int size, double radius, double mobility, vector<
 	this->m_size = size;
 	this->radius = radius;
 	this->mobility = mobility;
+	this->normalMobility = mobility;
 	this->i = Randomizer::randomize() * size;
 	this->j = Randomizer::randomize() * size;
 	this->parameters = parameters;
@@ -56,6 +57,11 @@ double Agent::get_j()
 double Agent::get_radius()
 {
 	return this->radius;
+}
+
+double Agent::get_normalMobility()
+{
+	return this->normalMobility;
 }
 
 SEIRS_type Agent::get_type()

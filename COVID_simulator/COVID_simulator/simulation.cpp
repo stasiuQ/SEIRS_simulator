@@ -7,6 +7,7 @@ using namespace std;
 Simulation::Simulation(double concentration, int m_size, int numberOfInfected)
 {
 	this->size = m_size;
+	this->zoneSize = this->size / (double)linearZonesDensity;
 	this->concentration = concentration;
 	this->initialInfected = numberOfInfected;
 	this->numberOfAgents = static_cast<int>((m_size * m_size * concentration) / (M_PI * GlobalParameters::get_radius() * GlobalParameters::get_radius()));
@@ -109,6 +110,19 @@ void Simulation::simulate(int numberOfSteps)
 		for (int j = 0; j < this->numberOfAgents; j++)  // time only dependant processes for all agents
 		{
 			agents[j].update();
+
+			double iOfAgent = agents[j].get_i();
+			double jOfAgent = agents[j].get_j();
+			int iIndexOfAgent = iOfAgent / zoneSize;
+			int jIndexOfAgent = jOfAgent / zoneSize;
+			if (detectHome(iOfAgent, jOfAgent))
+			{
+				agents[j].set_mobility(homes[ijTo_k(iIndexOfAgent, jIndexOfAgent)].get_mobilityModifier() * agents[j].get_normalMobility());
+			}
+			else
+			{
+				agents[j].set_mobility(agents[j].get_normalMobility());
+			}
 		}
 		
 		this->updateStatistics();

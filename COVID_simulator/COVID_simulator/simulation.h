@@ -17,8 +17,7 @@ private:
 	int numberOfAgents;
 	int initialInfected;
 	int linearZonesDensity = 10.;
-	double zoneSize = size / (double)linearZonesDensity;
-	double homesDensity = 0.1; /// Number of homes per number of zones.
+	double zoneSize;
 	double maxHomeRadius;
 	double minHomeRadius;
 	double blockTime;
