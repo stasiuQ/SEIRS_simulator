@@ -11,7 +11,10 @@ Simulation::Simulation(double concentration, int m_size, int numberOfInfected)
 	this->initialInfected = numberOfInfected;
 	this->numberOfAgents = static_cast<int>((m_size * m_size * concentration) / (M_PI * GlobalParameters::get_radius() * GlobalParameters::get_radius()));
 	this->agents = vector<Agent>(this->numberOfAgents);
+	this->homes = vector<Home>(this->linearZonesDensity * this->linearZonesDensity);
 	this->simulationParameters = GlobalParameters::get_sim_parameters();
+	this->maxHomeRadius = ((double)this->size / (double)this->linearZonesDensity) / 4.;
+	this->minHomeRadius = maxHomeRadius / 4.;
 	
 	for (int i = 0; i < numberOfInfected; i++) // creating agents, first infected, then susceptible
 	{
@@ -27,6 +30,7 @@ Simulation::Simulation(double concentration, int m_size, int numberOfInfected)
 	/// TESTING ONLY!!!
 	wearMasks();
 	initializeCouriers();
+	initializeHomes();
 
 	this->outputFile.open("output_data.txt", ios::out);
 	this->outputFile << "S" << "	" << "E" << "	" << "I" << "	" << "R" << endl;
@@ -57,6 +61,29 @@ void Simulation::initializeCouriers()
 		double rand = Randomizer::randomize();
 		if (rand < beingCourierProbability)
 			this->agents[i].set_mobility(mobilityModifier * GlobalParameters::get_mobility());
+	}
+}
+
+void Simulation::initializeHomes()
+{
+	double zoneSize = ((double)size / (double)linearZonesDensity);
+	double perimeterDistance = maxHomeRadius * 1.1;
+	for (int i = 0; i < linearZonesDensity; i++)
+	{
+		for (int j = 0; j < linearZonesDensity; j++)
+		{
+			double rand = Randomizer::randomize();
+			if (rand < homeInZoneProbability)
+			{
+				/// Parameters below ensure that homes will not overlap.
+				double iOfHomeInZone = (Randomizer::randomize() * (zoneSize - 2 * perimeterDistance)) + perimeterDistance;
+				double jOfHomeInZone = (Randomizer::randomize() * (zoneSize - 2 * perimeterDistance)) + perimeterDistance;
+				double iOfHome = i * zoneSize + iOfHomeInZone;
+				double jOfHome = j * zoneSize + jOfHomeInZone;
+				double homeRadius = (Randomizer::randomize() * (maxHomeRadius - minHomeRadius)) + minHomeRadius;
+				homes[ijTo_k(i, j)] = Home(iOfHome, jOfHome, homeRadius);
+			}
+		}
 	}
 }
 
@@ -143,4 +170,9 @@ void Simulation::updateStatistics()
 void Simulation::printStatistics()
 {
 	this->outputFile << no_S << "	" << no_E << "	" << no_I << "	" << no_R << endl;
+}
+
+int Simulation::ijTo_k(int i, int j)
+{
+	return i * linearZonesDensity + j;
 }

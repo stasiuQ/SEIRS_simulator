@@ -6,6 +6,7 @@
 #include <vector>
 #include <fstream>
 #include "agent.h"
+#include "home.h"
 
 using namespace std;
 
@@ -15,16 +16,23 @@ private:
 	double concentration;
 	int numberOfAgents;
 	int initialInfected;
+	int linearZonesDensity = 10.;
+	double homesDensity = 0.1; /// Number of homes per number of zones.
+	double maxHomeRadius;
+	double minHomeRadius;
+	double blockTime;
 
 	// Probabilities
 	double wearingMaskProbability = 0.5;
 	double beingCourierProbability = 0.1;
+	double homeInZoneProbability = 0.2;
 
 	// Modifiers
 	double mobilityModifier = 3.0;
 	double radiusModifier = 0.8;
 	double spreadingModifier = 0.8;
 	vector<Agent> agents;
+	vector<Home> homes;
 	vector<double> simulationParameters;
 	fstream outputFile;
 
@@ -42,9 +50,12 @@ public:
 
 	void wearMasks();
 	void initializeCouriers();
+	void initializeHomes();
 
 	void simulate(int numberOfSteps);
 	bool detectContact(Agent* a1, Agent* a2);
 	void updateStatistics();
 	void printStatistics();
+
+	int ijTo_k(int i, int j);
 };

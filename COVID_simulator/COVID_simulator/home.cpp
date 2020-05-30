@@ -1,6 +1,6 @@
 #include "home.h"
 
-Home::Home(double i, double j, double radius, double minHomeDistance, double blockTime, double maxCapacity, double mobilityModifier)
+Home::Home(double i, double j, double radius, double blockTime, int maxCapacity, double mobilityModifier)
 {
 	this->radius = radius;
 	this->blockTime = blockTime;
@@ -8,12 +8,16 @@ Home::Home(double i, double j, double radius, double minHomeDistance, double blo
 	this->maxCapacity = maxCapacity;
 	this->capacity = 0;
 	this->mobilityModifier = mobilityModifier;
-	this->minHomeDistance = radius + minHomeDistance;
 }
 
-bool Home::isHomeHere(Home *home)
+Home::Home()
 {
-	return false;
+	this->radius = 0.;
+	this->blockTime = 0.;
+	this->elapsedTime = 0;
+	this->maxCapacity = 0;
+	this->capacity = 0;
+	this->mobilityModifier = 1.;
 }
 
 bool Home::canAgentEnter(double dt)
@@ -48,7 +52,7 @@ double Home::get_mobilityModifier()
 
 void Home::update(Agent * agent)
 {
-	double distance = pow(this->i - agent->get_i(), 2.) + pow(this->j - agent->get_j(), 2.);
+	double distance = sqrt(pow(this->i - agent->get_i(), 2.) + pow(this->j - agent->get_j(), 2.));
 	if (distance < this->radius)
 		capacity += 1;
 }
