@@ -45,6 +45,11 @@ double Home::get_j()
 	return this->j;
 }
 
+double Home::get_radius()
+{
+	return this->radius;
+}
+
 double Home::get_mobilityModifier()
 {
 	return this->mobilityModifier;

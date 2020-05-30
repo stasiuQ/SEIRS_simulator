@@ -13,7 +13,7 @@ Simulation::Simulation(double concentration, int m_size, int numberOfInfected)
 	this->agents = vector<Agent>(this->numberOfAgents);
 	this->homes = vector<Home>(this->linearZonesDensity * this->linearZonesDensity);
 	this->simulationParameters = GlobalParameters::get_sim_parameters();
-	this->maxHomeRadius = ((double)this->size / (double)this->linearZonesDensity) / 4.;
+	this->maxHomeRadius = zoneSize / 4.;
 	this->minHomeRadius = maxHomeRadius / 4.;
 	
 	for (int i = 0; i < numberOfInfected; i++) // creating agents, first infected, then susceptible
@@ -66,8 +66,7 @@ void Simulation::initializeCouriers()
 
 void Simulation::initializeHomes()
 {
-	double zoneSize = ((double)size / (double)linearZonesDensity);
-	double perimeterDistance = maxHomeRadius * 1.1;
+	double perimeterDistance = this->maxHomeRadius * 1.1;
 	for (int i = 0; i < linearZonesDensity; i++)
 	{
 		for (int j = 0; j < linearZonesDensity; j++)
@@ -76,11 +75,11 @@ void Simulation::initializeHomes()
 			if (rand < homeInZoneProbability)
 			{
 				/// Parameters below ensure that homes will not overlap.
-				double iOfHomeInZone = (Randomizer::randomize() * (zoneSize - 2 * perimeterDistance)) + perimeterDistance;
-				double jOfHomeInZone = (Randomizer::randomize() * (zoneSize - 2 * perimeterDistance)) + perimeterDistance;
-				double iOfHome = i * zoneSize + iOfHomeInZone;
-				double jOfHome = j * zoneSize + jOfHomeInZone;
-				double homeRadius = (Randomizer::randomize() * (maxHomeRadius - minHomeRadius)) + minHomeRadius;
+				double iOfHomeInZone = (Randomizer::randomize() * (this->zoneSize - 2 * perimeterDistance)) + perimeterDistance;
+				double jOfHomeInZone = (Randomizer::randomize() * (this->zoneSize - 2 * perimeterDistance)) + perimeterDistance;
+				double iOfHome = i * this->zoneSize + iOfHomeInZone;
+				double jOfHome = j * this->zoneSize + jOfHomeInZone;
+				double homeRadius = (Randomizer::randomize() * (this->maxHomeRadius - this->minHomeRadius)) + this->minHomeRadius;
 				homes[ijTo_k(i, j)] = Home(iOfHome, jOfHome, homeRadius);
 			}
 		}
@@ -123,13 +122,19 @@ bool Simulation::detectContact(Agent * a1, Agent * a2)
 	double distance = sqrt((di * di) + (dj * dj));
 
 	if (distance < (a1->get_radius() + a2->get_radius()))
-	{
 		return true;
-	}
 	else
-	{
 		return false;
-	}
+}
+
+bool Simulation::detectHome(double i, double j)
+{
+	int iIndexOfHome = i / zoneSize;
+	int jIndexOfHome = j / zoneSize;
+	if (homes[ijTo_k(iIndexOfHome, jIndexOfHome)].get_radius() != 0)
+		return true;
+	else
+		return false;
 }
 
 void Simulation::updateStatistics()

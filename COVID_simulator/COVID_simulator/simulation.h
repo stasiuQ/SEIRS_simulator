@@ -17,6 +17,7 @@ private:
 	int numberOfAgents;
 	int initialInfected;
 	int linearZonesDensity = 10.;
+	double zoneSize = size / (double)linearZonesDensity;
 	double homesDensity = 0.1; /// Number of homes per number of zones.
 	double maxHomeRadius;
 	double minHomeRadius;
@@ -54,6 +55,7 @@ public:
 
 	void simulate(int numberOfSteps);
 	bool detectContact(Agent* a1, Agent* a2);
+	bool detectHome(double i, double j);
 	void updateStatistics();
 	void printStatistics();
 
