@@ -36,11 +36,13 @@ public static class Globals{
     //create Delegats
     public delegate void StartDelegate();
     public delegate void ClearDeletgate();
-    public delegate void PauseDelegate();
+
+    public delegate void DrawChart(DrawData drawData);
 
     //definitions delegats
     public static StartDelegate StartMethod;
     public static ClearDeletgate ClearMethod;
-    public static PauseDelegate PauseMethod;
+
+    public static DrawChart DrawChartMethod;
 }
 }

@@ -1,7 +1,7 @@
+using Seirs;
 using UnityEngine;
-using UnityEngine.UI;
 
-namespace Seirs.UI.Buttons
+namespace UIElements.Buttons
 {
     public class ClearButton : MonoBehaviour {
 
