@@ -9,13 +9,17 @@ public class Window_Graph : MonoBehaviour {
 
     [SerializeField] private Sprite circleSprite;
     private RectTransform graphContainer;
+    private RectTransform labelTemplateX; // wyslij mi to
+    private RectTransform labelTemplateY;
 
     private void Awake() {
         graphContainer = transform.Find("graphContainer").GetComponent<RectTransform>();
+        labelTemplateX = graphContainer.Find("labelTemplateX").GetComponent<RectTransform>();
+        labelTemplateY = graphContainer.Find("labelTemplateY").GetComponent<RectTransform>();
         List<int> valueList = new List<int>() { 5, 98, 56, 45, 30, 22, 17, 15, 13, 17, 25, 37, 40, 36, 33 };
         ShowGraph(valueList);
-         List<int> valueList2 = new List<int>() { 14, 13, 6, 66, 34, 32, 100, 13,11, 12, 13, 17, 25, 37, 40, 36, 33 };
-        ShowGraph(valueList2);
+         //List<int> valueList2 = new List<int>() { 14, 13, 6, 66, 34, 32, 100, 13,11, 12, 13, 17, 25, 37, 40, 36, 33 };
+        //ShowGraph(valueList2);
     }
 
     private GameObject CreateCircle(Vector2 anchoredPosition) {
@@ -36,14 +40,32 @@ public class Window_Graph : MonoBehaviour {
         float xSize = 50f;
 
         GameObject lastCircleGameObject = null;
-        for (int i = 0; i < valueList.Count; i++) {
+        for (int i = 0; i < valueList.Count; i++) 
+        {
             float xPosition = xSize + i * xSize;
             float yPosition = (valueList[i] / yMaximum) * graphHeight;
             GameObject circleGameObject = CreateCircle(new Vector2(xPosition, yPosition));
-            if (lastCircleGameObject != null) {
+            if (lastCircleGameObject != null) 
+            {
                 CreateDotConnection(lastCircleGameObject.GetComponent<RectTransform>().anchoredPosition, circleGameObject.GetComponent<RectTransform>().anchoredPosition);
             }
             lastCircleGameObject = circleGameObject;
+
+            RectTransform labelX = Instantiate(labelTemplateX);
+            labelX.SetParent(graphContainer);
+            labelX.gameObject.SetActive(true);
+            labelX.anchoredPosition = new Vector2(xPosition, -10f);
+            labelX.GetComponent<Text>().text = i.ToString();
+        }
+
+        int separatorCount = 10;
+        for (int i = 0; i < separatorCount; i++)
+        {
+            RectTransform labelY = Instantiate(labelTemplateY);
+            labelY.SetParent(graphContainer, false);
+            labelY.gameObject.SetActive(true);
+            float normalizedValue = i * 1f/separatorCount;
+            //labelY.anchoredPosition = new Vector2(-7f, );
         }
     }
 
