@@ -1,17 +1,17 @@
-#include "pch.h"
 #include "agent.h"
 #include "randomizer.h"
 #include "globalParameters.h"
 
-Agent::Agent(SEIRS_type state, int size, double r, double mob, vector<double> param)
+Agent::Agent(SEIRS_type state, int size, double radius, double mobility, vector<double> parameters)
 {
 	this->type = state;
 	this->m_size = size;
-	this->radius = r;
-	this->mobility = mob;
+	this->radius = radius;
+	this->mobility = mobility;
+	this->normalMobility = mobility;
 	this->i = Randomizer::randomize() * size;
 	this->j = Randomizer::randomize() * size;
-	this->parameters = param;
+	this->parameters = parameters;
 }
 
 Agent::Agent()
@@ -29,6 +29,26 @@ Agent::~Agent()
 {
 }
 
+void Agent::set_mobility(double mobility)
+{
+	this->mobility = mobility;
+}
+
+void Agent::set_normalMobility(double mobility)
+{
+	this->normalMobility = mobility;
+}
+
+void Agent::set_radius(double radius)
+{
+	this->radius = radius;
+}
+
+void Agent::set_beta(double beta)
+{
+	this->parameters[0] = beta;
+}
+
 double Agent::get_i()
 {
 	return this->i;
@@ -42,6 +62,11 @@ double Agent::get_j()
 double Agent::get_radius()
 {
 	return this->radius;
+}
+
+double Agent::get_normalMobility()
+{
+	return this->normalMobility;
 }
 
 SEIRS_type Agent::get_type()

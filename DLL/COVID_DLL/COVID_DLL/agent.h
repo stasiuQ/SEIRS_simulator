@@ -14,6 +14,7 @@ private:
 
 	SEIRS_type type;
 	double mobility;   // number from 0 to 1
+	double normalMobility; // mobility while not being in home
 	double radius;   // radius of agent (infectious) circular area
 	vector<double> parameters;  // set of coefficients [4] : beta, epsilon, mu , rho
 
@@ -22,10 +23,17 @@ public:
 	Agent();
 	~Agent();
 
+	// setters
+	void set_mobility(double mobility);
+	void set_normalMobility(double mobility);
+	void set_radius(double radius);
+	void set_beta(double beta);
+
 	// getters
 	double get_i();
 	double get_j();
 	double get_radius();
+	double get_normalMobility();
 	SEIRS_type get_type();
 
 	void move();

@@ -19,7 +19,6 @@ private:
 	double zoneSize;
 	double maxHomeRadius;
 	double minHomeRadius;
-	double blockTime;
 
 	vector<Agent> agents;
 	vector<Home> homes;

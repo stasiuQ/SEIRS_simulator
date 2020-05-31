@@ -1,19 +1,23 @@
-#include "pch.h"
 #include "simulation.h"
 #include "globalParameters.h"
+#include "randomizer.h"
 
 using namespace std;
 
 Simulation::Simulation(double concentration, int m_size, int numberOfInfected)
 {
 	this->size = m_size;
+	this->zoneSize = this->size / static_cast<double>(GlobalParameters::get_linearZonesDensity());
 	this->concentration = concentration;
 	this->initialInfected = numberOfInfected;
 	this->numberOfAgents = static_cast<int>((m_size * m_size * concentration) / (M_PI * GlobalParameters::get_radius() * GlobalParameters::get_radius()));
 	this->agents = vector<Agent>(this->numberOfAgents);
+	this->homes = vector<Home>(GlobalParameters::get_linearZonesDensity() * GlobalParameters::get_linearZonesDensity());
 	this->simulationParameters = GlobalParameters::get_sim_parameters();
+	this->maxHomeRadius = zoneSize / 4.;
+	this->minHomeRadius = maxHomeRadius / 4.;
 	
-	for (int i = 0; i < numberOfInfected; i++) // creating agents, fisrt infected, then susceptible
+	for (int i = 0; i < numberOfInfected; i++) // creating agents, first infected, then susceptible
 	{
 		Agent agent = Agent(SEIRS_type::I, m_size, GlobalParameters::get_radius(), GlobalParameters::get_mobility(), this->simulationParameters);
 		this->agents[i] = agent;
@@ -31,6 +35,55 @@ Simulation::Simulation(double concentration, int m_size, int numberOfInfected)
 Simulation::~Simulation()
 {
 	this->outputFile.close();
+}
+
+void Simulation::wearMasks()
+{
+	for (int i = 0; i < this->numberOfAgents; i++)
+	{
+		double rand = Randomizer::randomize();
+		if (rand < GlobalParameters::get_wearingMaskProbability())
+		{
+			this->agents[i].set_radius(GlobalParameters::get_radiusModifier() * GlobalParameters::get_radius());
+			this->agents[i].set_beta(GlobalParameters::get_spreadingModifier() * this->simulationParameters[0]);
+		}
+	}
+}
+
+void Simulation::initializeCouriers()
+{
+	for (int i = 0; i < this->numberOfAgents; i++)
+	{
+		double rand = Randomizer::randomize();
+		if (rand < GlobalParameters::get_beingCourierProbability())
+		{
+			double mobility = GlobalParameters::get_mobilityModifier() * GlobalParameters::get_mobility();
+			this->agents[i].set_mobility(mobility);
+			this->agents[i].set_normalMobility(mobility);
+		}
+	}
+}
+
+void Simulation::initializeHomes()
+{
+	double perimeterDistance = this->maxHomeRadius * 1.1;
+	for (int i = 0; i < GlobalParameters::get_linearZonesDensity(); i++)
+	{
+		for (int j = 0; j < GlobalParameters::get_linearZonesDensity(); j++)
+		{
+			double rand = Randomizer::randomize();
+			if (rand < GlobalParameters::get_homeInZoneProbability())
+			{
+				/// Parameters below ensure that homes will not overlap.
+				double iOfHomeInZone = (Randomizer::randomize() * (this->zoneSize - 2 * perimeterDistance)) + perimeterDistance;
+				double jOfHomeInZone = (Randomizer::randomize() * (this->zoneSize - 2 * perimeterDistance)) + perimeterDistance;
+				double iOfHome = i * this->zoneSize + iOfHomeInZone;
+				double jOfHome = j * this->zoneSize + jOfHomeInZone;
+				double homeRadius = (Randomizer::randomize() * (this->maxHomeRadius - this->minHomeRadius)) + this->minHomeRadius;
+				homes[ijTo_k(i, j)] = Home(iOfHome, jOfHome, homeRadius);
+			}
+		}
+	}
 }
 
 void Simulation::simulate(int numberOfSteps)
@@ -58,10 +111,28 @@ void Simulation::simulate(int numberOfSteps)
 			agents[j].update();
 		}
 		
-		this->step++;
 		this->updateStatistics();
 	}
+}
 
+void Simulation::simulateWithHomes(int numberOfSteps)
+{
+	simulate(numberOfSteps);
+	for (int j = 0; j < this->numberOfAgents; j++)  // time only dependant processes for all agents
+	{
+		double iOfAgent = agents[j].get_i();
+		double jOfAgent = agents[j].get_j();
+		int iIndexOfAgent = iOfAgent / zoneSize;
+		int jIndexOfAgent = jOfAgent / zoneSize;
+		if (detectHome(iOfAgent, jOfAgent))
+		{
+			agents[j].set_mobility(homes[ijTo_k(iIndexOfAgent, jIndexOfAgent)].get_mobilityModifier() * agents[j].get_normalMobility());
+		}
+		else
+		{
+			agents[j].set_mobility(agents[j].get_normalMobility());
+		}
+	}
 }
 
 bool Simulation::detectContact(Agent * a1, Agent * a2)
@@ -71,13 +142,25 @@ bool Simulation::detectContact(Agent * a1, Agent * a2)
 	double distance = sqrt((di * di) + (dj * dj));
 
 	if (distance < (a1->get_radius() + a2->get_radius()))
-	{
 		return true;
-	}
 	else
-	{
 		return false;
-	}
+}
+
+bool Simulation::detectHome(double i, double j)
+{
+	int iIndexOfHome = i / zoneSize;
+	int jIndexOfHome = j / zoneSize;
+
+	int di = homes[ijTo_k(iIndexOfHome, jIndexOfHome)].get_i() - i;
+	int dj = homes[ijTo_k(iIndexOfHome, jIndexOfHome)].get_j() - j;
+	int distance = sqrt(di * di + dj * dj);
+
+	double r = homes[ijTo_k(iIndexOfHome, jIndexOfHome)].get_radius();
+	if (r != 0 && distance < r)
+		return true;
+	else
+		return false;
 }
 
 void Simulation::updateStatistics()
@@ -120,43 +203,7 @@ void Simulation::printStatistics()
 	this->outputFile << no_S << "	" << no_E << "	" << no_I << "	" << no_R << endl;
 }
 
-vector<vector<double>> Simulation::outputInterface()
+int Simulation::ijTo_k(int i, int j)
 {
-	vector<vector<double>> outputVector = vector<vector<double>>();
-	for (int i = 0; i < this->numberOfAgents; i++) {
-		vector<double> tempVector = vector<double>{ agents[i].get_i(), agents[i].get_j() };   // firstly pushing coordinates
-
-		switch (agents[i].get_type())
-		{
-		case SEIRS_type::S:
-			tempVector.push_back(0.);
-			break;
-
-		case SEIRS_type::E:
-			tempVector.push_back(1.);
-			break;
-
-		case SEIRS_type::I:
-			tempVector.push_back(2.);
-			break;
-
-		case SEIRS_type::R:
-			tempVector.push_back(3.);
-			break;
-
-		default:
-			break;
-		}
-
-		outputVector.push_back(tempVector);
-	}
-	vector<double> tempVector = vector<double>();
-	tempVector.push_back(no_S);
-	tempVector.push_back(no_E);
-	tempVector.push_back(no_I);
-	tempVector.push_back(no_R);
-	tempVector.push_back(step);
-	outputVector.push_back(tempVector);
-
-	return outputVector;
+	return i * GlobalParameters::get_linearZonesDensity() + j;
 }
