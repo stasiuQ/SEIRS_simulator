@@ -11,6 +11,17 @@ double GlobalParameters::epsilon;  // E -> I
 double GlobalParameters::mu;  // I -> R
 double GlobalParameters::rho; // R -> S
 
+int GlobalParameters::linearZonesDensity;
+// Probabilities
+double GlobalParameters::wearingMaskProbability;
+double GlobalParameters::beingCourierProbability;
+double GlobalParameters::homeInZoneProbability;
+
+// Modifiers
+double GlobalParameters::mobilityModifier;
+double GlobalParameters::radiusModifier;
+double GlobalParameters::spreadingModifier;
+
 void GlobalParameters::load(string name)
 {
 	fstream ini_file;
@@ -75,6 +86,41 @@ double GlobalParameters::get_concentration()
 int GlobalParameters::get_size()
 {
 	return static_cast<int>(size);
+}
+
+int  GlobalParameters::get_linearZonesDensity()
+{
+	return linearZonesDensity;
+}
+
+double  GlobalParameters::get_wearingMaskProbability()
+{
+	return wearingMaskProbability;
+}
+
+double  GlobalParameters::get_beingCourierProbability()
+{
+	return beingCourierProbability;
+}
+
+double  GlobalParameters::get_homeInZoneProbability()
+{
+	return homeInZoneProbability;
+}
+
+double  GlobalParameters::get_mobilityModifier()
+{
+	return mobilityModifier;
+}
+
+double  GlobalParameters::get_radiusModifier()
+{
+	return radiusModifier;
+}
+
+double  GlobalParameters::get_spreadingModifier()
+{
+	return spreadingModifier;
 }
 
 vector<double> GlobalParameters::get_sim_parameters()

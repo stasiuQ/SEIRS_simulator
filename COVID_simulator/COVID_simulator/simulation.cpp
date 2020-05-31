@@ -7,12 +7,12 @@ using namespace std;
 Simulation::Simulation(double concentration, int m_size, int numberOfInfected)
 {
 	this->size = m_size;
-	this->zoneSize = this->size / (double)linearZonesDensity;
+	this->zoneSize = this->size / (double)GlobalParameters::get_linearZonesDensity();
 	this->concentration = concentration;
 	this->initialInfected = numberOfInfected;
 	this->numberOfAgents = static_cast<int>((m_size * m_size * concentration) / (M_PI * GlobalParameters::get_radius() * GlobalParameters::get_radius()));
 	this->agents = vector<Agent>(this->numberOfAgents);
-	this->homes = vector<Home>(this->linearZonesDensity * this->linearZonesDensity);
+	this->homes = vector<Home>(GlobalParameters::get_linearZonesDensity() * GlobalParameters::get_linearZonesDensity());
 	this->simulationParameters = GlobalParameters::get_sim_parameters();
 	this->maxHomeRadius = zoneSize / 4.;
 	this->minHomeRadius = maxHomeRadius / 4.;
@@ -28,11 +28,6 @@ Simulation::Simulation(double concentration, int m_size, int numberOfInfected)
 		this->agents[i] = agent;
 	}
 
-	/// TESTING ONLY!!!
-	wearMasks();
-	initializeCouriers();
-	initializeHomes();
-
 	this->outputFile.open("output_data.txt", ios::out);
 	this->outputFile << "S" << "	" << "E" << "	" << "I" << "	" << "R" << endl;
 }
@@ -47,10 +42,10 @@ void Simulation::wearMasks()
 	for (int i = 0; i < this->numberOfAgents; i++)
 	{
 		double rand = Randomizer::randomize();
-		if (rand < wearingMaskProbability)
+		if (rand < GlobalParameters::get_wearingMaskProbability())
 		{
-			this->agents[i].set_radius(radiusModifier * GlobalParameters::get_radius());
-			this->agents[i].set_beta(spreadingModifier * this->simulationParameters[0]);
+			this->agents[i].set_radius(GlobalParameters::get_radiusModifier() * GlobalParameters::get_radius());
+			this->agents[i].set_beta(GlobalParameters::get_spreadingModifier() * this->simulationParameters[0]);
 		}
 	}
 }
@@ -60,20 +55,20 @@ void Simulation::initializeCouriers()
 	for (int i = 0; i < this->numberOfAgents; i++)
 	{
 		double rand = Randomizer::randomize();
-		if (rand < beingCourierProbability)
-			this->agents[i].set_mobility(mobilityModifier * GlobalParameters::get_mobility());
+		if (rand < GlobalParameters::get_beingCourierProbability())
+			this->agents[i].set_mobility(GlobalParameters::get_mobilityModifier() * GlobalParameters::get_mobility());
 	}
 }
 
 void Simulation::initializeHomes()
 {
 	double perimeterDistance = this->maxHomeRadius * 1.1;
-	for (int i = 0; i < linearZonesDensity; i++)
+	for (int i = 0; i < GlobalParameters::get_linearZonesDensity(); i++)
 	{
-		for (int j = 0; j < linearZonesDensity; j++)
+		for (int j = 0; j < GlobalParameters::get_linearZonesDensity(); j++)
 		{
 			double rand = Randomizer::randomize();
-			if (rand < homeInZoneProbability)
+			if (rand < GlobalParameters::get_homeInZoneProbability())
 			{
 				/// Parameters below ensure that homes will not overlap.
 				double iOfHomeInZone = (Randomizer::randomize() * (this->zoneSize - 2 * perimeterDistance)) + perimeterDistance;
@@ -206,5 +201,5 @@ void Simulation::printStatistics()
 
 int Simulation::ijTo_k(int i, int j)
 {
-	return i * linearZonesDensity + j;
+	return i * GlobalParameters::get_linearZonesDensity() + j;
 }
