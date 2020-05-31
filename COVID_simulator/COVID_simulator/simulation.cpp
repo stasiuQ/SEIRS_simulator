@@ -56,7 +56,11 @@ void Simulation::initializeCouriers()
 	{
 		double rand = Randomizer::randomize();
 		if (rand < GlobalParameters::get_beingCourierProbability())
-			this->agents[i].set_mobility(GlobalParameters::get_mobilityModifier() * GlobalParameters::get_mobility());
+		{
+			double mobility = GlobalParameters::get_mobilityModifier() * GlobalParameters::get_mobility();
+			this->agents[i].set_mobility(mobility);
+			this->agents[i].set_normalMobility(mobility);
+		}
 	}
 }
 

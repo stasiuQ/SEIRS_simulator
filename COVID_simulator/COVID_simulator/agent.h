@@ -25,6 +25,7 @@ public:
 
 	// setters
 	void set_mobility(double mobility);
+	void set_normalMobility(double mobility);
 	void set_radius(double radius);
 	void set_beta(double beta);
 

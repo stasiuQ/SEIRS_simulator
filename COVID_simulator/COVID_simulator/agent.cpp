@@ -34,6 +34,11 @@ void Agent::set_mobility(double mobility)
 	this->mobility = mobility;
 }
 
+void Agent::set_normalMobility(double mobility)
+{
+	this->normalMobility = mobility;
+}
+
 void Agent::set_radius(double radius)
 {
 	this->radius = radius;
