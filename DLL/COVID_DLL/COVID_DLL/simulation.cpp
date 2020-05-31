@@ -117,20 +117,22 @@ void Simulation::simulate(int numberOfSteps)
 
 void Simulation::simulateWithHomes(int numberOfSteps)
 {
-	simulate(numberOfSteps);
-	for (int j = 0; j < this->numberOfAgents; j++)  // time only dependant processes for all agents
-	{
-		double iOfAgent = agents[j].get_i();
-		double jOfAgent = agents[j].get_j();
-		int iIndexOfAgent = iOfAgent / zoneSize;
-		int jIndexOfAgent = jOfAgent / zoneSize;
-		if (detectHome(iOfAgent, jOfAgent))
+	for (int i = 0; i < numberOfSteps; i++) {
+		simulate(1);
+		for (int j = 0; j < this->numberOfAgents; j++)  // time only dependant processes for all agents
 		{
-			agents[j].set_mobility(homes[ijTo_k(iIndexOfAgent, jIndexOfAgent)].get_mobilityModifier() * agents[j].get_normalMobility());
-		}
-		else
-		{
-			agents[j].set_mobility(agents[j].get_normalMobility());
+			double iOfAgent = agents[j].get_i();
+			double jOfAgent = agents[j].get_j();
+			int iIndexOfAgent = iOfAgent / zoneSize;
+			int jIndexOfAgent = jOfAgent / zoneSize;
+			if (detectHome(iOfAgent, jOfAgent))
+			{
+				agents[j].set_mobility(homes[ijTo_k(iIndexOfAgent, jIndexOfAgent)].get_mobilityModifier() * agents[j].get_normalMobility());
+			}
+			else
+			{
+				agents[j].set_mobility(agents[j].get_normalMobility());
+			}
 		}
 	}
 }
@@ -201,6 +203,47 @@ void Simulation::updateStatistics()
 void Simulation::printStatistics()
 {
 	this->outputFile << no_S << "	" << no_E << "	" << no_I << "	" << no_R << endl;
+}
+
+vector<vector<double>> Simulation::outputInterface()
+{
+	vector<vector<double>> outputVector = vector<vector<double>>();
+	for (int i = 0; i < this->numberOfAgents; i++) {
+		vector<double> tempVector = vector<double>{ agents[i].get_i(), agents[i].get_j() };   // firstly pushing coordinates
+
+		switch (agents[i].get_type())
+		{
+		case SEIRS_type::S:
+			tempVector.push_back(0.);
+			break;
+
+		case SEIRS_type::E:
+			tempVector.push_back(1.);
+			break;
+
+		case SEIRS_type::I:
+			tempVector.push_back(2.);
+			break;
+
+		case SEIRS_type::R:
+			tempVector.push_back(3.);
+			break;
+
+		default:
+			break;
+		}
+
+		outputVector.push_back(tempVector);
+	}
+	vector<double> tempVector = vector<double>();
+	tempVector.push_back(no_S);
+	tempVector.push_back(no_E);
+	tempVector.push_back(no_I);
+	tempVector.push_back(no_R);
+	tempVector.push_back(step);
+	outputVector.push_back(tempVector);
+
+	return outputVector;
 }
 
 int Simulation::ijTo_k(int i, int j)

@@ -48,6 +48,9 @@
     <ClInclude Include="simulation.h">
       <Filter>Pliki nagłówkowe\MODEL</Filter>
     </ClInclude>
+    <ClInclude Include="home.h">
+      <Filter>Pliki nagłówkowe\MODEL</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">
@@ -76,6 +79,9 @@
     </ClCompile>
     <ClCompile Include="debugger.cpp">
       <Filter>Pliki źródłowe</Filter>
+    </ClCompile>
+    <ClCompile Include="home.cpp">
+      <Filter>Pliki źródłowe\MODEL</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

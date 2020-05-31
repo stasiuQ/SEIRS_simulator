@@ -8,6 +8,10 @@ Instruction for int instructions:
 1 - deleting a simulation
 2 - proceeding a simulation
 3 - changing parameters
+4 - initialize masks
+5 - initiazlize couriers
+6 - initiazlize homes
+7 - proceeding a simulation with home
 
 
 Every common tab has a structure like this:
@@ -18,7 +22,7 @@ and others - partcular values
 
 extern "C" {
 	
-	__declspec(dllexport) void send(int commonInstr, double* commonParams, double* commonAgentsState, int* commonStats) {
+	__declspec(dllexport) void send(int commonInstr, double* commonParams, double* commonAgentsState, int* commonStats, double* commonHomes) {
 		std::vector<double> parameters;
 
 		for (int i = 1; i < static_cast<int>(commonParams[0]); i++) {   // reading parameters from common memory
