@@ -1,16 +1,8 @@
 ﻿using Seirs;
 using Seirs.Models;
-using Seirs.UI.Inputs;
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.InteropServices;
-using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class AgentSimulationManager : MonoBehaviour
 {
@@ -42,7 +34,6 @@ public class AgentSimulationManager : MonoBehaviour
     {
         Globals.StartMethod = StartPauseSimulation;
         Globals.ClearMethod = ClearSimulation;
-        //Globals.PauseMethod = PauseSimulation;
     }
 
     private void Awake()
@@ -64,6 +55,7 @@ public class AgentSimulationManager : MonoBehaviour
         if(Globals.IsCleared)
         {
             CreateSymulation();
+            Globals.Parameters = Globals.ParametersEdited;
         }
 
         if(!Globals.State)
@@ -78,11 +70,10 @@ public class AgentSimulationManager : MonoBehaviour
     {
         // proceed simulation after waitTime
         currentTime += Time.deltaTime;
-        if (currentTime > waitTime && Globals.State)
-        {
-            ProceedSimulation();
-            currentTime = 0;
-        }
+        if (!(currentTime > waitTime) || !Globals.State) return;
+        
+        ProceedSimulation();
+        currentTime = 0;
     }
     private void CreateSymulation()
     {
@@ -99,7 +90,6 @@ public class AgentSimulationManager : MonoBehaviour
 
     public void ProceedSimulation()
     {
-        
         SendDLL(Instruction.ProceedSimulation.ToInt(), Globals.Parameters.ToDoubleArray(), agentState, Stats);
         OnNextStep?.Invoke(agentState, (float)Globals.Parameters.Radius);
         OnChartUpdate?.Invoke(Stats);
@@ -108,6 +98,12 @@ public class AgentSimulationManager : MonoBehaviour
     public void ChangeParameters()
     {
         SendDLL(Instruction.ChangeParameters.ToInt(), Globals.Parameters.ToDoubleArray(), agentState, Stats);
+    }
+
+    public void ChangeSpeed(Single value)
+    {
+        stepsPerSec = (int) value;
+        waitTime = 1.0 / stepsPerSec;
     }
 
 }

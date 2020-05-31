@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -35,7 +36,7 @@ namespace Seirs
 
         public void SetColor(State s)
         {
-            rend = rend ?? GetComponent<Renderer>();
+            rend = rend ? rend : GetComponent<Renderer>();
 
             switch (s)
             {
@@ -51,6 +52,11 @@ namespace Seirs
                 case State.R:
                     rend.material = blueMaterial;
                     break;
+                case State.Hidden:
+                    rend.enabled = false;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(s), s, null);
             }
         }
     }
@@ -60,6 +66,7 @@ namespace Seirs
         S,
         E,
         I,
-        R
+        R,
+        Hidden
     }
 }
