@@ -100,5 +100,11 @@ public class AgentSimulationManager : MonoBehaviour
         SendDLL(Instruction.ChangeParameters.ToInt(), Globals.Parameters.ToDoubleArray(), agentState, Stats);
     }
 
+    public void ChangeSpeed(Single value)
+    {
+        stepsPerSec = (int) value;
+        waitTime = 1.0 / stepsPerSec;
+    }
+
 }
 
