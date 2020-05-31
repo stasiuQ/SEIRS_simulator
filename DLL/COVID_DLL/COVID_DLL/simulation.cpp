@@ -124,8 +124,8 @@ void Simulation::simulateWithHomes(int numberOfSteps)
 		{
 			double iOfAgent = agents[j].get_i();
 			double jOfAgent = agents[j].get_j();
-			int iIndexOfAgent = iOfAgent / zoneSize;
-			int jIndexOfAgent = jOfAgent / zoneSize;
+			int iIndexOfAgent = static_cast<int>(floor(iOfAgent / zoneSize));
+			int jIndexOfAgent = static_cast<int>(floor(jOfAgent / zoneSize));
 			if (detectHome(iOfAgent, jOfAgent))
 			{
 				agents[j].set_mobility(homes[ijTo_k(iIndexOfAgent, jIndexOfAgent)].get_mobilityModifier() * agents[j].get_normalMobility());
@@ -152,12 +152,12 @@ bool Simulation::detectContact(Agent * a1, Agent * a2)
 
 bool Simulation::detectHome(double i, double j)
 {
-	int iIndexOfHome = i / zoneSize;
-	int jIndexOfHome = j / zoneSize;
+	int iIndexOfHome = static_cast<int>(floor(i / zoneSize));
+	int jIndexOfHome = static_cast<int>(floor(j / zoneSize));
 
-	int di = homes[ijTo_k(iIndexOfHome, jIndexOfHome)].get_i() - i;
-	int dj = homes[ijTo_k(iIndexOfHome, jIndexOfHome)].get_j() - j;
-	int distance = sqrt(di * di + dj * dj);
+	double di = homes[ijTo_k(iIndexOfHome, jIndexOfHome)].get_i() - i;
+	double dj = homes[ijTo_k(iIndexOfHome, jIndexOfHome)].get_j() - j;
+	double distance = sqrt(di * di + dj * dj);
 
 	double r = homes[ijTo_k(iIndexOfHome, jIndexOfHome)].get_radius();
 	if (r != 0 && distance < r)
