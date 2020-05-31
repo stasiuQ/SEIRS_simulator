@@ -41,6 +41,11 @@ namespace Seirs
             }
         }
 
+        public void HidePoints(double[] age)
+        {
+            
+        }
+
         private void Awake()
         {
             Agents = new Dictionary<int, Agent>();

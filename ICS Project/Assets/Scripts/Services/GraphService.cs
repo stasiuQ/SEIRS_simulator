@@ -20,7 +20,7 @@ namespace Seirs.Services
             if (_currentBatch.CanAdd() == false)
             {
                 PrepareToShow();
-                ShowEvent();
+                ShowEvent(CreateSeries(_displayBatch));
             }
 
             _currentBatch.Add(stats);
@@ -30,10 +30,9 @@ namespace Seirs.Services
         {
             _displayBatch = _currentBatch;
             _currentBatch = new BatchStats();
-            ShowEvent(CreateSeries(_displayBatch));
         }
 
-        private void ShowEvent(DrawData drawData)
+        private void  ShowEvent(DrawData drawData)
         {
             Globals.DrawChartMethod(drawData);
         }
