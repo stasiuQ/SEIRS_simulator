@@ -16,13 +16,15 @@ private:
 	static double radius;
 	static double mobility;
 	static double concentration;
+	static int initialInfected;
 	
-	//Epidemiological parameters
+	// Epidemiological parameters
 	static double beta; // S -> E
 	static double epsilon;  // E -> I
 	static double mu;  // I -> R
 	static double rho; // R -> S
 
+	//*  ADDITIONAL FEATURES *//
 	static int linearZonesDensity;
 	// Probabilities
 	static double wearingMaskProbability;
@@ -36,11 +38,14 @@ private:
 
 public:
 	static void load(string name);
+	static void load(vector<double>& parameters);
 	static double get_dt();
 	static double get_radius();
 	static double get_mobility();
 	static double get_concentration();
 	static int get_size();
+	static int get_initialInfected();
+
 	static int get_linearZonesDensity();
 	static double get_wearingMaskProbability();
 	static double get_beingCourierProbability();

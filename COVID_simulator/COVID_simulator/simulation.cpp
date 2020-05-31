@@ -7,7 +7,7 @@ using namespace std;
 Simulation::Simulation(double concentration, int m_size, int numberOfInfected)
 {
 	this->size = m_size;
-	this->zoneSize = this->size / (double)GlobalParameters::get_linearZonesDensity();
+	this->zoneSize = this->size / static_cast<double>(GlobalParameters::get_linearZonesDensity());
 	this->concentration = concentration;
 	this->initialInfected = numberOfInfected;
 	this->numberOfAgents = static_cast<int>((m_size * m_size * concentration) / (M_PI * GlobalParameters::get_radius() * GlobalParameters::get_radius()));

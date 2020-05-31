@@ -25,7 +25,7 @@ double GlobalParameters::spreadingModifier;
 void GlobalParameters::load(string name)
 {
 	fstream ini_file;
-	double paramTable[9];    // Update when no parameter in Global changes!
+	double paramTable[10];    // Update when new parameter in Global changes!
 	ini_file.open(name, ios::in);
 	if (!ini_file.good()) {
 		cout << "Inicialization file corrupted!" << endl;
@@ -52,15 +52,31 @@ void GlobalParameters::load(string name)
 		radius = paramTable[2];
 		mobility = paramTable[3];
 		concentration = paramTable[4];
+		initialInfected = static_cast<int>(paramTable[5]);
 
-		beta = paramTable[5];
-		epsilon = paramTable[6];
-		mu = paramTable[7];
-		rho = paramTable[8];
+		beta = paramTable[6];
+		epsilon = paramTable[7];
+		mu = paramTable[8];
+		rho = paramTable[9];
 
 
 		ini_file.close();
 	}
+}
+
+void GlobalParameters::load(vector<double>& parameters)
+{
+	dt = parameters[0];
+	size = parameters[1];
+	radius = parameters[2];
+	mobility = parameters[3];
+	concentration = parameters[4];
+	initialInfected = static_cast<int>(parameters[5]);
+
+	beta = parameters[6];
+	epsilon = parameters[7];
+	mu = parameters[8];
+	rho = parameters[9];
 }
 
 double GlobalParameters::get_dt()
@@ -86,6 +102,11 @@ double GlobalParameters::get_concentration()
 int GlobalParameters::get_size()
 {
 	return static_cast<int>(size);
+}
+
+int GlobalParameters::get_initialInfected()
+{
+	return initialInfected;
 }
 
 int  GlobalParameters::get_linearZonesDensity()
