@@ -7,6 +7,7 @@
 class Communicator {
 private:
 	static Simulation* currentSimulation;
+	static void clear_simulation();
 public:
 	static std::vector<std::vector<double>> read(int internalInstructions, std::vector<double>& internalParameters);
 	static void loadParameters(std::vector<double>& internalParameters);

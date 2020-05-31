@@ -3,7 +3,15 @@
 
  Simulation* Communicator::currentSimulation;
 
-std::vector<std::vector<double>> Communicator::read(int internalInstructions, std::vector<double>& internalParameters) {
+ void Communicator::clear_simulation()
+ {
+	 if (currentSimulation != nullptr) {
+		 delete currentSimulation;
+		 currentSimulation = nullptr;
+	 }
+ }
+
+ std::vector<std::vector<double>> Communicator::read(int internalInstructions, std::vector<double>& internalParameters) {
 	/* Reading instructions for simulation */
 	switch (internalInstructions)
 	{
@@ -13,7 +21,7 @@ std::vector<std::vector<double>> Communicator::read(int internalInstructions, st
 		currentSimulation = new Simulation(GlobalParameters::get_concentration(), GlobalParameters::get_size(), GlobalParameters::get_initialInfected());
 		break;
 	case 1:  // deleting simulation
-		delete currentSimulation;
+		clear_simulation();
 		return std::vector<std::vector<double>>();
 	case 2:   // proceeding simulation
 		currentSimulation->simulate(1);
