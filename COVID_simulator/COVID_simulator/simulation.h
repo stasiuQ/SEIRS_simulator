@@ -53,6 +53,7 @@ public:
 	void initializeHomes();
 
 	void simulate(int numberOfSteps);
+	void simulateWithHomes(int numberOfSteps);
 	bool detectContact(Agent* a1, Agent* a2);
 	bool detectHome(double i, double j);
 	void updateStatistics();

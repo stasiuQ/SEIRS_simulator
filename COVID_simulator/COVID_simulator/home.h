@@ -22,7 +22,7 @@ private:
 	void update(Agent * agent);
 public:
 	Home();
-	Home(double i, double j, double radius, double blockTime = 5., int maxCapacity = 5, double mobilityModifier = 0.1); /// TBD if these parameters should be in the init file.
+	Home(double i, double j, double radius, double blockTime = 5., int maxCapacity = 5, double mobilityModifier = 0.5); /// TBD if these parameters should be in the init file.
 
 	/// Getters
 	double get_i();

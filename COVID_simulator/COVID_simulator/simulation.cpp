@@ -110,22 +110,29 @@ void Simulation::simulate(int numberOfSteps)
 		for (int j = 0; j < this->numberOfAgents; j++)  // time only dependant processes for all agents
 		{
 			agents[j].update();
-
-			double iOfAgent = agents[j].get_i();
-			double jOfAgent = agents[j].get_j();
-			int iIndexOfAgent = iOfAgent / zoneSize;
-			int jIndexOfAgent = jOfAgent / zoneSize;
-			if (detectHome(iOfAgent, jOfAgent))
-			{
-				agents[j].set_mobility(homes[ijTo_k(iIndexOfAgent, jIndexOfAgent)].get_mobilityModifier() * agents[j].get_normalMobility());
-			}
-			else
-			{
-				agents[j].set_mobility(agents[j].get_normalMobility());
-			}
 		}
 		
 		this->updateStatistics();
+	}
+}
+
+void Simulation::simulateWithHomes(int numberOfSteps)
+{
+	simulate(numberOfSteps);
+	for (int j = 0; j < this->numberOfAgents; j++)  // time only dependant processes for all agents
+	{
+		double iOfAgent = agents[j].get_i();
+		double jOfAgent = agents[j].get_j();
+		int iIndexOfAgent = iOfAgent / zoneSize;
+		int jIndexOfAgent = jOfAgent / zoneSize;
+		if (detectHome(iOfAgent, jOfAgent))
+		{
+			agents[j].set_mobility(homes[ijTo_k(iIndexOfAgent, jIndexOfAgent)].get_mobilityModifier() * agents[j].get_normalMobility());
+		}
+		else
+		{
+			agents[j].set_mobility(agents[j].get_normalMobility());
+		}
 	}
 }
 
@@ -145,7 +152,13 @@ bool Simulation::detectHome(double i, double j)
 {
 	int iIndexOfHome = i / zoneSize;
 	int jIndexOfHome = j / zoneSize;
-	if (homes[ijTo_k(iIndexOfHome, jIndexOfHome)].get_radius() != 0)
+
+	int di = homes[ijTo_k(iIndexOfHome, jIndexOfHome)].get_i() - i;
+	int dj = homes[ijTo_k(iIndexOfHome, jIndexOfHome)].get_j() - j;
+	int distance = sqrt(di * di + dj * dj);
+
+	double r = homes[ijTo_k(iIndexOfHome, jIndexOfHome)].get_radius();
+	if (r != 0 && distance < r)
 		return true;
 	else
 		return false;
