@@ -21,6 +21,18 @@ std::vector<std::vector<double>> Communicator::read(int internalInstructions, st
 	case 3:     // changing parameters, no need to return statistics
 		loadParameters(internalParameters);
 		return std::vector<std::vector<double>>();
+	case 4:     // initializing masks, no need to return statistics
+		currentSimulation->wearMasks();
+		return std::vector<std::vector<double>>();
+	case 5:     // initializing couriers, no need to return statistics
+		currentSimulation->initializeCouriers();
+		return std::vector<std::vector<double>>();
+	case 6:     // initializing homes, no need to return statistics
+		currentSimulation->initializeHomes();
+		return std::vector<std::vector<double>>();
+	case 7:     // proceeding a simulations with homes
+		currentSimulation->simulateWithHomes(1);
+		break;
 	default:
 		return std::vector<std::vector<double>>();
 		break;

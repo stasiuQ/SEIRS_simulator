@@ -1,3 +1,4 @@
+#include "pch.h"
 #include "simulation.h"
 #include "globalParameters.h"
 #include "randomizer.h"
@@ -242,6 +243,14 @@ vector<vector<double>> Simulation::outputInterface()
 	tempVector.push_back(no_R);
 	tempVector.push_back(step);
 	outputVector.push_back(tempVector);
+
+	vector<double> homesVector = vector<double>();
+	for (int i = 0; i < homes.size(); i++) {
+		homesVector.push_back(homes[i].get_i());
+		homesVector.push_back(homes[i].get_j());
+		homesVector.push_back(homes[i].get_radius());
+	}
+	outputVector.push_back(homesVector);
 
 	return outputVector;
 }

@@ -1,3 +1,4 @@
+#include "pch.h"
 #include "globalParameters.h"
 
 double GlobalParameters::dt;
@@ -5,6 +6,7 @@ double GlobalParameters::size;
 double GlobalParameters::radius;
 double GlobalParameters::mobility;
 double GlobalParameters::concentration;
+int GlobalParameters::initialInfected;
 
 double GlobalParameters::beta; // S -> E
 double GlobalParameters::epsilon;  // E -> I
@@ -59,7 +61,7 @@ void GlobalParameters::load(string name)
 		mu = paramTable[8];
 		rho = paramTable[9];
 
-		linearZonesDensity = paramTable[10];
+		linearZonesDensity = static_cast<int>(paramTable[10]);
 		wearingMaskProbability = paramTable[11];
 		beingCourierProbability = paramTable[12];
 		homeInZoneProbability = paramTable[13];
@@ -86,7 +88,7 @@ void GlobalParameters::load(vector<double>& parameters)
 	mu = parameters[8];
 	rho = parameters[9];
 
-	linearZonesDensity = parameters[10];
+	linearZonesDensity = static_cast<int>(parameters[10]);
 	wearingMaskProbability = parameters[11];
 	beingCourierProbability = parameters[12];
 	homeInZoneProbability = parameters[13];

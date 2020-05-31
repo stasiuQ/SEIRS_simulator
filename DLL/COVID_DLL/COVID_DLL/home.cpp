@@ -1,3 +1,4 @@
+#include "pch.h"
 #include "home.h"
 
 Home::Home(double i, double j, double radius)

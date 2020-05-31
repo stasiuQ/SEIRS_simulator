@@ -11,7 +11,7 @@ Instruction for int instructions:
 4 - initialize masks
 5 - initiazlize couriers
 6 - initiazlize homes
-7 - proceeding a simulation with home
+7 - proceeding a simulation with homes
 
 
 Every common tab has a structure like this:
@@ -41,8 +41,11 @@ extern "C" {
 
 				iterator += 3;
 			}
-			for (int i = 1; i < commonStats[0]; i++) {  // updating commonStats in shared memory (last element of simulationStatistics)
-				commonStats[i] = static_cast<int>(simulationState[simulationState.size() - 1][i - 1]);
+			for (int i = 1; i < commonStats[0]; i++) {  // updating commonStats in shared memory (second last element of simulationStatistics)
+				commonStats[i] = static_cast<int>(simulationState[simulationState.size() - 2][i - 1]);
+			}
+			for (int i = 1; i < commonHomes[0]; i++) {  // updating commonHomes in shared memory (last element of simulationStatistics)
+				commonHomes[i] = simulationState[simulationState.size() - 1][i - 1];
 			}
 		}
 
