@@ -44,7 +44,7 @@ extern "C" {
 			for (int i = 1; i < commonStats[0]; i++) {  // updating commonStats in shared memory (second last element of simulationStatistics)
 				commonStats[i] = static_cast<int>(simulationState[simulationState.size() - 2][i - 1]);
 			}
-			for (int i = 1; i < commonHomes[0]; i++) {  // updating commonHomes in shared memory (last element of simulationStatistics)
+			for (int i = 1; i < static_cast<int>(commonHomes[0]); i++) {  // updating commonHomes in shared memory (last element of simulationStatistics)
 				commonHomes[i] = simulationState[simulationState.size() - 1][i - 1];
 			}
 		}

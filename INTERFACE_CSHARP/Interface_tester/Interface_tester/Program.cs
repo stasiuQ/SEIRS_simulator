@@ -34,7 +34,6 @@ namespace Interface_tester
 
         static void Main(string[] args)
         {
-            int instructions = 0;
             double[] parameters = new double[] { 18, 1, 100, 2, 0.75, 0.4, 2, 0.9, 0.05, 0.005, 0, 5, 0.5, 0.05, 0.2, 3, 0.5, 0  };
 
             int agentStateSize = 3 * (int)((parameters[2] * parameters[2] * parameters[5]) / (Math.PI * parameters[3] * parameters[3])) + 1; // 3x number of agents + 1, 955
@@ -47,11 +46,12 @@ namespace Interface_tester
 
             int[] stats = new int[] { 6, 0, 0, 0, 0, 0 };   // size, S, E, I, R, step
 
+            int instructions = 0;
             SendDLL(instructions, parameters, agentState, stats, homes);   // Initializing simulation
 
             instructions = 2;
 
-            for (int i = 0; i < 1; i++)  // proceeding simulation
+            for (int i = 0; i < 1000; i++)  // proceeding simulation
             {
                 SendDLL(instructions, parameters, agentState, stats, homes);
             }
@@ -60,10 +60,6 @@ namespace Interface_tester
 
             SendDLL(instructions, parameters, agentState, stats, homes);
 
-            for (int i = 0; i < 6; i++)
-            {
-                System.Console.WriteLine(stats[i]);
-            }
         }
     }
 }
