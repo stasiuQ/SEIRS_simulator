@@ -112,6 +112,7 @@ void Simulation::simulate(int numberOfSteps)
 			agents[j].update();
 		}
 		
+		this->step++;
 		this->updateStatistics();
 	}
 }
