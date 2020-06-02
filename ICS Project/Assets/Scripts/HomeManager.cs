@@ -37,14 +37,19 @@ public class HomeManager : MonoBehaviour
         }
     }
 
-    public void HidePoints(double[] age)
+    public void DestroyAllHomes()
     {
-
+        foreach (var home in Homes)
+        {
+            Destroy(home.Value.gameObject);
+        }
+        Homes.Clear();
     }
 
     private void Awake()
     {
         Homes = new Dictionary<int, Home>();
         AgentSimulationManager.OnAddHomes += OnAddIsolatingHomes;
+        AgentSimulationManager.OnDestroyHomes += DestroyAllHomes;
     }
 }

@@ -15,7 +15,9 @@ public class AgentSimulationManager : MonoBehaviour
     [SerializeField] private Toggle masks;
 
     public static event Action<double[], float> OnNextStep;
+    public static event Action OnDestroyAgents;
     public static event Action<double[]> OnAddHomes;
+    public static event Action OnDestroyHomes;
     public static event Action<int[]> OnChartUpdate;
 
     public int[] Stats { get; set;} = { 6, 0, 0, 0, 0, 0 };
@@ -104,14 +106,25 @@ public class AgentSimulationManager : MonoBehaviour
         {
             SendDLL(Instruction.InitializeMasks.ToInt(), Globals.Parameters.ToDoubleArray(), agentState, Stats, homes);
         }
+        isolation.enabled = false;
+        couriers.enabled = false;
+        masks.enabled = false;
         Globals.IsCleared = false;
     }
 
     public void ClearSimulation()
     {
         SendDLL(Instruction.DeleteSimulation.ToInt(), Globals.Parameters.ToDoubleArray(), agentState, Stats, homes);   // Clearing simulation
+        OnDestroyAgents?.Invoke();
+        if (isIsolation)
+        {
+            OnDestroyHomes?.Invoke();
+        }
         Globals.State = false;
         Globals.IsCleared = true;
+        isolation.enabled = true;
+        couriers.enabled = true;
+        masks.enabled = true;
     }
 
     public void ProceedSimulation()

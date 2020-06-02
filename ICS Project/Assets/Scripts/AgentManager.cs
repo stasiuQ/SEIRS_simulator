@@ -46,10 +46,20 @@ namespace Seirs
             
         }
 
+        public void DestroyAllAgents()
+        {
+            foreach (var agent in Agents)
+            {
+                Destroy(agent.Value.gameObject);
+            }
+            Agents.Clear();
+        }
+
         private void Awake()
         {
             Agents = new Dictionary<int, Agent>();
             AgentSimulationManager.OnNextStep += OnNextSimStep;
+            AgentSimulationManager.OnDestroyAgents += DestroyAllAgents;
         }
 
     }
