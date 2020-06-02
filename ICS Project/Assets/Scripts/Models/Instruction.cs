@@ -5,7 +5,11 @@ namespace Seirs.Models
         CreateSimulation = 0,
         DeleteSimulation = 1,
         ProceedSimulation = 2,
-        ChangeParameters = 3
+        ChangeParameters = 3,
+        InitializeMasks = 4,
+        InitializeCouriers = 5,
+        InitializeHomes = 6,
+        ProceedSimulationWithHomes = 7
     }
 
     public static class InstructionExtensions{
