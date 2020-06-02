@@ -74,13 +74,20 @@
      <Compile Include="Assets\Scripts\UIElements\Buttons\StartButton.cs" />
      <Compile Include="Assets\Scripts\UIElements\Inputs\BetaInput.cs" />
      <Compile Include="Assets\Scripts\UIElements\Inputs\ConcentrationInput.cs" />
-     <Compile Include="Assets\Scripts\UIElements\Inputs\DtInput.cs" />
-     <Compile Include="Assets\Scripts\UIElements\Inputs\EpshilonInput.cs" />
+     <Compile Include="Assets\Scripts\UIElements\Inputs\EpsilonInput.cs" />
      <Compile Include="Assets\Scripts\UIElements\Inputs\InfectedInput.cs" />
+     <Compile Include="Assets\Scripts\UIElements\Inputs\LinearZonesInput.cs" />
+     <Compile Include="Assets\Scripts\UIElements\Inputs\MobilityCouriersInput.cs" />
      <Compile Include="Assets\Scripts\UIElements\Inputs\MobilityInput.cs" />
      <Compile Include="Assets\Scripts\UIElements\Inputs\MuInput.cs" />
+     <Compile Include="Assets\Scripts\UIElements\Inputs\ProbBeingCourierInput.cs" />
+     <Compile Include="Assets\Scripts\UIElements\Inputs\ProbHomeInZoneInput.cs" />
+     <Compile Include="Assets\Scripts\UIElements\Inputs\ProbWearingMaskInput.cs" />
      <Compile Include="Assets\Scripts\UIElements\Inputs\RadiusInput.cs" />
+     <Compile Include="Assets\Scripts\UIElements\Inputs\RadiusMaskInput.cs" />
      <Compile Include="Assets\Scripts\UIElements\Inputs\RhoInput.cs" />
+     <Compile Include="Assets\Scripts\UIElements\Inputs\SpreadingMaskInput.cs" />
+     <Compile Include="Assets\Scripts\UIElements\Inputs\StepsInput.cs" />
  <Reference Include="Unity.Timeline.Editor">
  <HintPath>D:/workspace/Cpp/check/Complex_systems/ICS Project/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
  </Reference>

@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ContentModelStore">
-    <e p="C:\Users\pawel.tomkow\.Rider2019.3\config\consoles\db" t="IncludeRecursive" />
-    <e p="C:\Users\pawel.tomkow\.Rider2019.3\config\extensions" t="IncludeRecursive" />
-    <e p="C:\Users\pawel.tomkow\.Rider2019.3\system\extResources" t="IncludeRecursive" />
-    <e p="C:\Users\pawel.tomkow\.Rider2019.3\system\resharper-host\Local\Transient\ReSharperHost\v193\SolutionCaches\_ICS Project.1724887303.00" t="ExcludeRecursive" />
-    <e p="E:\workspace\weronika\new\Complex_systems\ICS Project" t="IncludeRecursive">
+    <e p="C:\Users\wmaci\AppData\Local\JetBrains\Rider2020.1\extResources" t="IncludeRecursive" />
+    <e p="C:\Users\wmaci\AppData\Local\JetBrains\Rider2020.1\resharper-host\Local\Transient\ReSharperHost\v201\SolutionCaches\_ICS Project.-1633248319.00" t="ExcludeRecursive" />
+    <e p="D:\workspace\Cpp\check\Complex_systems\ICS Project" t="IncludeRecursive">
       <e p="Assembly-CSharp-firstpass.csproj" t="IncludeRecursive" />
       <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
       <e p="Assets" t="Include">
@@ -99,13 +97,20 @@
             <e p="Inputs" t="Include">
               <e p="BetaInput.cs" t="Include" />
               <e p="ConcentrationInput.cs" t="Include" />
-              <e p="DtInput.cs" t="Include" />
-              <e p="EpshilonInput.cs" t="Include" />
+              <e p="EpsilonInput.cs" t="Include" />
               <e p="InfectedInput.cs" t="Include" />
+              <e p="LinearZonesInput.cs" t="Include" />
+              <e p="MobilityCouriersInput.cs" t="Include" />
               <e p="MobilityInput.cs" t="Include" />
               <e p="MuInput.cs" t="Include" />
+              <e p="ProbBeingCourierInput.cs" t="Include" />
+              <e p="ProbHomeInZoneInput.cs" t="Include" />
+              <e p="ProbWearingMaskInput.cs" t="Include" />
               <e p="RadiusInput.cs" t="Include" />
+              <e p="RadiusMaskInput.cs" t="Include" />
               <e p="RhoInput.cs" t="Include" />
+              <e p="SpreadingMaskInput.cs" t="Include" />
+              <e p="StepsInput.cs" t="Include" />
             </e>
           </e>
         </e>
