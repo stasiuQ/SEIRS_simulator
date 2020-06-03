@@ -13,7 +13,6 @@ public class AgentSimulationManager : MonoBehaviour
     [SerializeField] private Toggle isolation;
     [SerializeField] private Toggle couriers;
     [SerializeField] private Toggle masks;
-
     public static event Action<double[], float> OnNextStep;
     public static event Action<double[]> OnAddHomes;
     public static event Action<int[]> OnChartUpdate;
@@ -34,7 +33,7 @@ public class AgentSimulationManager : MonoBehaviour
     private double currentTime=0;
     private double[] homes;
     private bool isIsolation;
-
+    public int simulationStep = 0;
     private void Start()
     {
         SetDelegates();
@@ -82,8 +81,12 @@ public class AgentSimulationManager : MonoBehaviour
         // proceed simulation after waitTime
         currentTime += Time.deltaTime;
         if (!(currentTime > waitTime) || !Globals.State) return;
-        
-        ProceedSimulation();
+
+        if (simulationStep < Globals.Steps)
+        {
+            ProceedSimulation();
+            simulationStep++;
+        }
         currentTime = 0;
     }
     private void CreateSymulation()
@@ -112,6 +115,7 @@ public class AgentSimulationManager : MonoBehaviour
         SendDLL(Instruction.DeleteSimulation.ToInt(), Globals.Parameters.ToDoubleArray(), agentState, Stats, homes);   // Clearing simulation
         Globals.State = false;
         Globals.IsCleared = true;
+        simulationStep = 0;
     }
 
     public void ProceedSimulation()

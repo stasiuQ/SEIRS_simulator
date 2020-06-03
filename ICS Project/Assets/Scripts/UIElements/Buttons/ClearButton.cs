@@ -1,4 +1,5 @@
 using Seirs;
+using Seirs.Models;
 using UnityEngine;
 
 namespace UIElements.Buttons
@@ -8,6 +9,8 @@ namespace UIElements.Buttons
         public void Clear()
         {
             Globals.ClearMethod();
+            Globals.ClearChartMethod();
+            DrawData.GetInstance.clearData();
         }
     }
 }
