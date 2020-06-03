@@ -29,15 +29,15 @@
 	case 3:     // changing parameters, no need to return statistics
 		loadParameters(internalParameters);
 		return std::vector<std::vector<double>>();
-	case 4:     // initializing masks, no need to return statistics
+	case 4:     // initializing masks
 		currentSimulation->wearMasks();
-		return std::vector<std::vector<double>>();
-	case 5:     // initializing couriers, no need to return statistics
+		break;
+	case 5:     // initializing couriers
 		currentSimulation->initializeCouriers();
-		return std::vector<std::vector<double>>();
-	case 6:     // initializing homes, no need to return statistics
+		break;
+	case 6:     // initializing homes
 		currentSimulation->initializeHomes();
-		return std::vector<std::vector<double>>();
+		break;
 	case 7:     // proceeding a simulations with homes
 		currentSimulation->simulateWithHomes(1);
 		break;

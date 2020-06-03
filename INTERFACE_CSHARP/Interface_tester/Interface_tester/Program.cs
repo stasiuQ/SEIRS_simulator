@@ -49,16 +49,31 @@ namespace Interface_tester
             int instructions = 0;
             SendDLL(instructions, parameters, agentState, stats, homes);   // Initializing simulation
 
-            instructions = 2;
+            instructions = 6;
+            SendDLL(instructions, parameters, agentState, stats, homes);   // Initializing simulation
+
+            for (int i = 0; i < sizeHomes; i++)
+            {
+                Console.WriteLine(homes[i]);
+            }
+
+            instructions = 7;
 
             for (int i = 0; i < 1000; i++)  // proceeding simulation
             {
                 SendDLL(instructions, parameters, agentState, stats, homes);
             }
 
+            for (int i = 0; i < sizeHomes; i++)
+            {
+                Console.WriteLine(homes[i]);
+            }
+
             instructions = 1;
 
             SendDLL(instructions, parameters, agentState, stats, homes);
+
+            Console.ReadLine();
 
         }
     }
