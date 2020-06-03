@@ -13,7 +13,7 @@ public class AgentSimulationManager : MonoBehaviour
     [SerializeField] private Toggle isolation;
     [SerializeField] private Toggle couriers;
     [SerializeField] private Toggle masks;
-
+	
     public static event Action<double[], float> OnNextStep;
     public static event Action OnDestroyAgents;
     public static event Action<double[]> OnAddHomes;
@@ -36,7 +36,8 @@ public class AgentSimulationManager : MonoBehaviour
     private double currentTime=0;
     private double[] homes;
     private bool isIsolation;
-
+    public int simulationStep = 0;
+	
     private void Start()
     {
         SetDelegates();
@@ -84,8 +85,12 @@ public class AgentSimulationManager : MonoBehaviour
         // proceed simulation after waitTime
         currentTime += Time.deltaTime;
         if (!(currentTime > waitTime) || !Globals.State) return;
-        
-        ProceedSimulation();
+
+        if (simulationStep < Globals.Steps)
+        {
+            ProceedSimulation();
+            simulationStep++;
+        }
         currentTime = 0;
     }
     private void CreateSymulation()
@@ -106,7 +111,8 @@ public class AgentSimulationManager : MonoBehaviour
         {
             SendDLL(Instruction.InitializeMasks.ToInt(), Globals.Parameters.ToDoubleArray(), agentState, Stats, homes);
         }
-        isolation.enabled = false;
+		
+		isolation.enabled = false;
         couriers.enabled = false;
         masks.enabled = false;
         Globals.IsCleared = false;
@@ -125,6 +131,7 @@ public class AgentSimulationManager : MonoBehaviour
         isolation.enabled = true;
         couriers.enabled = true;
         masks.enabled = true;
+        simulationStep = 0;
     }
 
     public void ProceedSimulation()
@@ -138,7 +145,6 @@ public class AgentSimulationManager : MonoBehaviour
             SendDLL(Instruction.ProceedSimulation.ToInt(), Globals.Parameters.ToDoubleArray(), agentState, Stats, homes);
         }
         OnNextStep?.Invoke(agentState, (float)Globals.Parameters.Radius);
-        //OnAddHomes?.Invoke(homes);
         OnChartUpdate?.Invoke(Stats);
     }
 
