@@ -2,17 +2,24 @@
 using System.Collections.Generic;
 using System.Linq;
 using Seirs;
+using Seirs.Models;
 using UnityEngine;
 
 public class ChartManager : MonoBehaviour
 {
-    public void OnNextCharStep(int[] stats)
+    DrawData data = DrawData.GetInstance;
+    public void UpdateData(int[] stats)
     {
-       Globals.GraphService.Add(stats);
+        data.SeriesS.Add(stats[1]);
+        data.SeriesE.Add(stats[2]);
+        data.SeriesI.Add(stats[3]);
+        data.SeriesR.Add(stats[4]);
+        data.SeriesStep.Add(stats[5]);
+        Globals.DrawChartMethod(data);
     }
 
     public void Awake()
     {
-        AgentSimulationManager.OnChartUpdate += OnNextCharStep;
+        AgentSimulationManager.OnChartUpdate += UpdateData;
     }
 }

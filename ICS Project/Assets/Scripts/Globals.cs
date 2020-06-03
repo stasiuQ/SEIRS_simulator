@@ -1,13 +1,12 @@
 using Seirs.Models;
-using Seirs.Services;
 
 namespace Seirs{
 public static class Globals{
     public static bool State = false;
     public static bool IsCleared = true;
     public static int BatchSize = 100;
-    public static int Steps = 1000;
-    
+    public static int Steps = 30;
+
     public static Parameters Parameters = new Parameters
     {
         Radius = 2,
@@ -45,19 +44,17 @@ public static class Globals{
         RadiusMask = 0.5, 
         SpreadingMask = 0
     };
-    
-    public static IGraphService GraphService { get; set; } = new GraphService();
-    
+
     //create Delegats
     public delegate void StartDelegate();
     public delegate void ClearDeletgate();
-
     public delegate void DrawChart(DrawData drawData);
+    public delegate void ClearChart();
 
     //definitions delegats
     public static StartDelegate StartMethod;
     public static ClearDeletgate ClearMethod;
-
     public static DrawChart DrawChartMethod;
+    public static ClearChart ClearChartMethod;
 }
 }

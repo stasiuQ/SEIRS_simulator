@@ -79,15 +79,12 @@
           <e p="Graph" t="Include">
             <e p="WindowGraph.cs" t="Include" />
           </e>
+          <e p="Home.cs" t="Include" />
+          <e p="HomeManager.cs" t="Include" />
           <e p="Models" t="Include">
-            <e p="BatchStats.cs" t="Include" />
             <e p="DrawData.cs" t="Include" />
             <e p="Instruction.cs" t="Include" />
             <e p="Parameters.cs" t="Include" />
-          </e>
-          <e p="Services" t="Include">
-            <e p="GraphService.cs" t="Include" />
-            <e p="IGraphService.cs" t="Include" />
           </e>
           <e p="UIElements" t="Include">
             <e p="Buttons" t="Include">
