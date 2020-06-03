@@ -74,6 +74,7 @@ public class AgentSimulationManager : MonoBehaviour
 
         if(!Globals.State)
         {
+            Globals.Parameters = Globals.ParametersEdited;
             ChangeParameters();
             ProceedSimulation();
         }

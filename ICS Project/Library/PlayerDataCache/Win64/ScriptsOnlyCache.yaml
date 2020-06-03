@@ -5,19 +5,28 @@ ScriptsOnlyBuild:
     Assembly-CSharp.dll:
     - AgentSimulationManager
     - ChartManager
+    - Home
+    - HomeManager
     - Seirs.Agent
     - Seirs.AgentManager
     - Seirs.Graph.WindowGraph
     - Seirs.UI.Buttons.StartButton
     - Seirs.UI.Inputs.BetaInput
     - Seirs.UI.Inputs.ConcentrationInput
-    - Seirs.UI.Inputs.DtInput
-    - Seirs.UI.Inputs.EpshilonInput
+    - Seirs.UI.Inputs.EpsilonInput
     - Seirs.UI.Inputs.InfectedInput
+    - Seirs.UI.Inputs.LinearZonesInput
+    - Seirs.UI.Inputs.MobilityCouriersInput
     - Seirs.UI.Inputs.MobilityInput
     - Seirs.UI.Inputs.MuInput
+    - Seirs.UI.Inputs.ProbBeingCourierInput
+    - Seirs.UI.Inputs.ProbHomeInZoneInput
+    - Seirs.UI.Inputs.ProbWearingMaskInput
     - Seirs.UI.Inputs.RadiusInput
+    - Seirs.UI.Inputs.RadiusMaskInput
     - Seirs.UI.Inputs.RhoInput
+    - Seirs.UI.Inputs.SpreadingMaskInput
+    - Seirs.UI.Inputs.StepsInput
     - UIElements.Buttons.ClearButton
     Unity.Rider.Editor.dll:
     - Packages.Rider.Editor.RiderScriptEditorData
@@ -80,77 +89,95 @@ ScriptsOnlyBuild:
     - Class: 109
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 11176}
+      Script: {instanceID: 11184}
     - Class: 114
-      Script: {instanceID: 11286}
+      Script: {instanceID: 11220}
     - Class: 114
-      Script: {instanceID: 11336}
+      Script: {instanceID: 11296}
     - Class: 114
-      Script: {instanceID: 11376}
+      Script: {instanceID: 11344}
     - Class: 114
-      Script: {instanceID: 11404}
+      Script: {instanceID: 11384}
     - Class: 114
-      Script: {instanceID: 11458}
+      Script: {instanceID: 11412}
     - Class: 114
-      Script: {instanceID: 11574}
+      Script: {instanceID: 11466}
+    - Class: 114
+      Script: {instanceID: 11508}
     - Class: 114
       Script: {instanceID: 11584}
     - Class: 114
-      Script: {instanceID: 11604}
+      Script: {instanceID: 11594}
     - Class: 114
-      Script: {instanceID: 11616}
+      Script: {instanceID: 11614}
     - Class: 114
-      Script: {instanceID: 11710}
+      Script: {instanceID: 11626}
     - Class: 114
-      Script: {instanceID: 11718}
+      Script: {instanceID: 11676}
     - Class: 114
-      Script: {instanceID: 11782}
+      Script: {instanceID: 11722}
     - Class: 114
-      Script: {instanceID: 11808}
+      Script: {instanceID: 11738}
     - Class: 114
-      Script: {instanceID: 12086}
+      Script: {instanceID: 11794}
     - Class: 114
-      Script: {instanceID: 12172}
+      Script: {instanceID: 11820}
     - Class: 114
-      Script: {instanceID: 12194}
+      Script: {instanceID: 11928}
     - Class: 114
-      Script: {instanceID: 12380}
+      Script: {instanceID: 11958}
     - Class: 114
-      Script: {instanceID: 12392}
+      Script: {instanceID: 12030}
     - Class: 114
-      Script: {instanceID: 12406}
+      Script: {instanceID: 12104}
     - Class: 114
-      Script: {instanceID: 12482}
+      Script: {instanceID: 12190}
+    - Class: 114
+      Script: {instanceID: 12212}
+    - Class: 114
+      Script: {instanceID: 12398}
+    - Class: 114
+      Script: {instanceID: 12410}
+    - Class: 114
+      Script: {instanceID: 12424}
     - Class: 114
       Script: {instanceID: 12500}
     - Class: 114
-      Script: {instanceID: 12598}
+      Script: {instanceID: 12518}
     - Class: 114
-      Script: {instanceID: 12630}
+      Script: {instanceID: 12616}
     - Class: 114
-      Script: {instanceID: 12664}
+      Script: {instanceID: 12648}
     - Class: 114
-      Script: {instanceID: 12676}
+      Script: {instanceID: 12682}
     - Class: 114
-      Script: {instanceID: 12744}
+      Script: {instanceID: 12694}
     - Class: 114
-      Script: {instanceID: 12818}
+      Script: {instanceID: 12760}
     - Class: 114
-      Script: {instanceID: 12894}
+      Script: {instanceID: 12772}
     - Class: 114
-      Script: {instanceID: 12928}
+      Script: {instanceID: 12834}
     - Class: 114
-      Script: {instanceID: 12958}
+      Script: {instanceID: 12910}
     - Class: 114
-      Script: {instanceID: 13030}
+      Script: {instanceID: 12944}
     - Class: 114
-      Script: {instanceID: 13044}
+      Script: {instanceID: 12974}
+    - Class: 114
+      Script: {instanceID: 12984}
+    - Class: 114
+      Script: {instanceID: 13046}
     - Class: 114
       Script: {instanceID: 13048}
     - Class: 114
-      Script: {instanceID: 13068}
+      Script: {instanceID: 13062}
     - Class: 114
-      Script: {instanceID: 13088}
+      Script: {instanceID: 13066}
+    - Class: 114
+      Script: {instanceID: 13086}
+    - Class: 114
+      Script: {instanceID: 13106}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -188,6 +215,12 @@ ScriptsOnlyBuild:
     assemblyName: Unity.TextMeshPro.dll
     namespaceName: TMPro
     className: TMP_SelectionCaret
+  - hash:
+      serializedVersion: 2
+      Hash: 00e0e0649e0d12bc28d802594c92bc39
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: Seirs.UI.Inputs
+    className: SpreadingMaskInput
   - hash:
       serializedVersion: 2
       Hash: 87ff43d2baf3385cba327d8f803a4ebb
@@ -280,7 +313,7 @@ ScriptsOnlyBuild:
     className: GridLayoutGroup
   - hash:
       serializedVersion: 2
-      Hash: 8f795a9712b95e97145468f753ed2de3
+      Hash: 9f08038d051748e0e0eb92fbb28d0b69
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: AgentSimulationManager
@@ -296,6 +329,12 @@ ScriptsOnlyBuild:
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
     className: SignalAsset
+  - hash:
+      serializedVersion: 2
+      Hash: 00e0e0649e0d12bc28d802594c92bc39
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: Seirs.UI.Inputs
+    className: LinearZonesInput
   - hash:
       serializedVersion: 2
       Hash: 0dbc3be398b4869a5c8d0d8481ee402c
@@ -325,7 +364,7 @@ ScriptsOnlyBuild:
       Hash: 00e0e0649e0d12bc28d802594c92bc39
     assemblyName: Assembly-CSharp.dll
     namespaceName: Seirs.UI.Inputs
-    className: EpshilonInput
+    className: EpsilonInput
   - hash:
       serializedVersion: 2
       Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
@@ -352,6 +391,12 @@ ScriptsOnlyBuild:
     className: AnimationPlayableAsset
   - hash:
       serializedVersion: 2
+      Hash: 00e0e0649e0d12bc28d802594c92bc39
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: Seirs.UI.Inputs
+    className: StepsInput
+  - hash:
+      serializedVersion: 2
       Hash: aba7b2852ef61d175dd9602e7723d5e5
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.UI
@@ -373,7 +418,7 @@ ScriptsOnlyBuild:
       Hash: 00e0e0649e0d12bc28d802594c92bc39
     assemblyName: Assembly-CSharp.dll
     namespaceName: Seirs.UI.Inputs
-    className: DtInput
+    className: ProbBeingCourierInput
   - hash:
       serializedVersion: 2
       Hash: cc4274b586df3c02688bac01b88bd16c
@@ -406,6 +451,18 @@ ScriptsOnlyBuild:
     className: Selectable
   - hash:
       serializedVersion: 2
+      Hash: 00e0e0649e0d12bc28d802594c92bc39
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: Seirs.UI.Inputs
+    className: RadiusMaskInput
+  - hash:
+      serializedVersion: 2
+      Hash: 00e0e0649e0d12bc28d802594c92bc39
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: Seirs.UI.Inputs
+    className: ProbWearingMaskInput
+  - hash:
+      serializedVersion: 2
       Hash: b3ab2106268377ffe25dd18ac23dca28
     assemblyName: Unity.TextMeshPro.dll
     namespaceName: TMPro
@@ -422,6 +479,12 @@ ScriptsOnlyBuild:
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
     className: SignalTrack
+  - hash:
+      serializedVersion: 2
+      Hash: 00e0e0649e0d12bc28d802594c92bc39
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: Seirs.UI.Inputs
+    className: MobilityCouriersInput
   - hash:
       serializedVersion: 2
       Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
@@ -592,6 +655,12 @@ ScriptsOnlyBuild:
     className: ClearButton
   - hash:
       serializedVersion: 2
+      Hash: 165294534bd07cae65e608b0acfe333f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: Home
+  - hash:
+      serializedVersion: 2
       Hash: c3d3430df9e3ea95e3e3d587961390fb
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
@@ -652,6 +721,12 @@ ScriptsOnlyBuild:
     className: Outline
   - hash:
       serializedVersion: 2
+      Hash: 627fcc9628dd610ea4f6a1faae4e4f27
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: HomeManager
+  - hash:
+      serializedVersion: 2
       Hash: a63fc1a3b035e5a0b5839cd7f7b3086e
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.EventSystems
@@ -692,6 +767,12 @@ ScriptsOnlyBuild:
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.EventSystems
     className: StandaloneInputModule
+  - hash:
+      serializedVersion: 2
+      Hash: 00e0e0649e0d12bc28d802594c92bc39
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: Seirs.UI.Inputs
+    className: ProbHomeInZoneInput
   - hash:
       serializedVersion: 2
       Hash: 8a2193d36589610b9a9a816079abc21d
@@ -737,4 +818,4 @@ ScriptsOnlyBuild:
   platform: 19
   scenePathNames:
   - Assets/Scenes/SampleScene.unity
-  playerPath: E:/Workspace/weronika/new/Complex_systems/ICS Project/build/ICS Project.exe
+  playerPath: D:/workspace/Cpp/check/Complex_systems/ICS Project/build/ICS Project.exe
