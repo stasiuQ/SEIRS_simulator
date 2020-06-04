@@ -8,6 +8,14 @@ namespace UIElements.Buttons
 
         public void Clear()
         {
+            if (Globals.Steps < 750)
+            {
+                Globals.MaxPointDraw = Globals.Steps;
+            }
+            else
+            {
+                Globals.MaxPointDraw = 750;
+            }
             Globals.ClearMethod();
             Globals.ClearChartMethod();
             //DrawData.GetInstance.clearData();

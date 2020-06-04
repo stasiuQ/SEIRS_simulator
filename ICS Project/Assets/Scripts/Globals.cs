@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using Seirs.Models;
 
 namespace Seirs{
@@ -5,7 +6,13 @@ public static class Globals{
     public static bool State = false;
     public static bool IsCleared = true;
     public static int Steps = 5000;
+    public static int StepsEdited = Steps;
     public static int AgentNumbers = 320;
+    public static int CurrentStep = 0;
+    public static int MaxPointDraw = 750;
+    
+    
+    
     public static int[] Stats { get; set;} = { 6, 0, 0, 0, 0, 0 };
     public static Parameters Parameters = new Parameters
     {
@@ -48,7 +55,7 @@ public static class Globals{
     //create Delegats
     public delegate void StartDelegate();
     public delegate void ClearDelegate();
-    public delegate void UpdateChart(int[] stats);
+    public delegate void UpdateChart();
     public delegate void ClearChart();
 
     //definitions delegats

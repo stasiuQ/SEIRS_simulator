@@ -56,7 +56,8 @@ namespace Seirs
                     rend.enabled = false;
                     break;
                 default:
-                    throw new ArgumentOutOfRangeException(nameof(s), s, null);
+                    // throw new ArgumentOutOfRangeException(nameof(s), s, null);
+                    break;
             }
         }
     }

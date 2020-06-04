@@ -2,6 +2,7 @@
 using Seirs.Models;
 using System;
 using System.Runtime.InteropServices;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,8 +14,10 @@ public class AgentSimulationManager : MonoBehaviour
     [SerializeField] private Toggle isolation;
     [SerializeField] private Toggle couriers;
     [SerializeField] private Toggle masks;
+    [SerializeField] public InputField steps;
 	
     public static event Action<double[], float> OnNextStep;
+    // public static event Action<int[]> OnNextStepChart;
     public static event Action OnDestroyAgents;
     public static event Action<double[]> OnAddHomes;
     public static event Action OnDestroyHomes;
@@ -63,7 +66,9 @@ public class AgentSimulationManager : MonoBehaviour
     public void StartPauseSimulation()
     {
         Globals.Parameters = Globals.ParametersEdited;
-        Debug.Log("StartPauseSimulation");
+        Globals.Steps = Globals.StepsEdited;
+
+//        Debug.Log("StartPauseSimulation");
         if(Globals.IsCleared)
         {    
             CreateSymulation();
@@ -88,6 +93,8 @@ public class AgentSimulationManager : MonoBehaviour
             ProceedSimulation();
             simulationStep++;
         }
+
+        // await Task.Delay(10);
         currentTime = 0;
     }
     private void CreateSymulation()
@@ -130,12 +137,14 @@ public class AgentSimulationManager : MonoBehaviour
         {
             OnDestroyHomes?.Invoke();
         }
+        Globals.CurrentStep = 0;
         Globals.State = false;
         Globals.IsCleared = true;
         isolation.enabled = true;
         couriers.enabled = true;
         masks.enabled = true;
         simulationStep = 0;
+
     }
 
     public void ProceedSimulation()
@@ -148,8 +157,13 @@ public class AgentSimulationManager : MonoBehaviour
         {
             SendDLL(Instruction.ProceedSimulation.ToInt(), Globals.Parameters.ToDoubleArray(), agentState, Globals.Stats, homes);
         }
+
+
+        Globals.UpdateChartMethod();
+
         OnNextStep?.Invoke(agentState, (float)Globals.Parameters.Radius);
-        OnChartUpdate?.Invoke(Globals.Stats);
+        // OnChartUpdate?.Invoke(Globals.Stats);
+        //OnNextStepChart?.Invoke(Globals.Stats);
     }
 
     public void ChangeParameters()

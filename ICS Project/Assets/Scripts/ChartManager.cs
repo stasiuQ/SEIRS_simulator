@@ -9,7 +9,7 @@ public class ChartManager : MonoBehaviour
         //Debug.Log( string.Join("/",stats));
         if (stats[5] <= Globals.Steps-1)
         {
-            Globals.UpdateChartMethod(stats);
+            // Globals.UpdateChartMethod(stats);
         }
     }
 

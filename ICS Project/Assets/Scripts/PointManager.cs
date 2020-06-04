@@ -27,13 +27,14 @@ namespace Seirs
             point.SetColor(st);
         }
 
-        public void OnNextPoint(double[] agentState, float r)
+        public void OnNextPoint(int[] stats)
         {
             //Debug.Log(agentState.Length);
             var id = 0;
-            for (var i = 1; i < agentState.Length; i += 3)
+            var r = 2;
+            for (var i = 1; i < 5; i ++)
             {
-                SetPoint(id, (float)agentState[i], (float)agentState[i + 1], r, (State)agentState[i + 2]);
+                SetPoint(id, (float)stats[5], stats[i], r, (State)stats[i-1]);
                 id++;
             }
         }
@@ -55,7 +56,7 @@ namespace Seirs
         private void Awake()
         {
             Points = new Dictionary<int, Agent>();
-            AgentSimulationManager.OnNextStep += OnNextPoint;
+            // AgentSimulationManager.OnNextStepChart += OnNextPoint;
             AgentSimulationManager.OnDestroyAgents += DestroyAllPoints;
         }
     }

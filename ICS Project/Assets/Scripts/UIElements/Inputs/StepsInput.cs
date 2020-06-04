@@ -15,7 +15,7 @@ namespace Seirs.UI.Inputs
 
         public void Set()
         {
-            Globals.Steps = int.Parse(field.text);
+            Globals.StepsEdited = int.Parse(field.text);
         }
     }
 }
