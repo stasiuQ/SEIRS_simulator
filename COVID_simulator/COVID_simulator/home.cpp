@@ -6,7 +6,7 @@ Home::Home(double i, double j, double radius)
 	this->i = i;
 	this->j = j;
 	this->radius = radius;
-	this->mobilityModifier = GlobalParameters::get_mobilityModifier();
+	this->mobilityModifier = 0.1;
 }
 
 Home::Home()
