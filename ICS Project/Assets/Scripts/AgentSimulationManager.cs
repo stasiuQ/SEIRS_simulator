@@ -27,7 +27,7 @@ public class AgentSimulationManager : MonoBehaviour
     public Toggle Masks { get => masks; set => masks = value; }
 
     private int agentsCount;
-    private int size = 955;
+    private int size = 0;
     private double[] agentState;
     private int stepsPerSec = 20;
     private double waitTime;
@@ -35,7 +35,8 @@ public class AgentSimulationManager : MonoBehaviour
     private double[] homes;
     private bool isIsolation;
     public int simulationStep = 0;
-	
+    private int homesSize = 0;
+
     private void Start()
     {
         SetDelegates();
@@ -49,9 +50,7 @@ public class AgentSimulationManager : MonoBehaviour
 
     private void Awake()
     {
-        agentState = new double[size];
         waitTime = 1.0/ stepsPerSec;
-        homes = new double[(int)Globals.Parameters.LinearZones* (int)Globals.Parameters.LinearZones * 3 + 1];
         SetPlaneScale();
     }
 
@@ -93,6 +92,13 @@ public class AgentSimulationManager : MonoBehaviour
     }
     private void CreateSymulation()
     {
+        homesSize = (int)Globals.Parameters.LinearZones * (int)Globals.Parameters.LinearZones * 3 + 1;
+        homes = new double[homesSize];
+        homes[0] = homesSize;
+        size = 3 * (int)((Globals.Parameters.Size * Globals.Parameters.Size * Globals.Parameters.Concentration) / (Math.PI * Globals.Parameters.Radius * Globals.Parameters.Radius)) + 1;
+        agentState = new double[size];
+        agentState[0] = size;
+
         isIsolation = false;
         SendDLL(Instruction.CreateSimulation.ToInt(), Globals.Parameters.ToDoubleArray(), agentState, Globals.Stats, homes);
         if (isolation.isOn)
