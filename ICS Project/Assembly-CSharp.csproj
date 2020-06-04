@@ -63,12 +63,14 @@
      <Compile Include="Assets\Scripts\AgentSimulationManager.cs" />
      <Compile Include="Assets\Scripts\ChartManager.cs" />
      <Compile Include="Assets\Scripts\Globals.cs" />
+     <Compile Include="Assets\Scripts\Graph\Example.cs" />
      <Compile Include="Assets\Scripts\Graph\WindowGraph.cs" />
      <Compile Include="Assets\Scripts\Home.cs" />
      <Compile Include="Assets\Scripts\HomeManager.cs" />
      <Compile Include="Assets\Scripts\Models\DrawData.cs" />
      <Compile Include="Assets\Scripts\Models\Instruction.cs" />
      <Compile Include="Assets\Scripts\Models\Parameters.cs" />
+     <Compile Include="Assets\Scripts\Models\Stats.cs" />
      <Compile Include="Assets\Scripts\UIElements\Buttons\ClearButton.cs" />
      <Compile Include="Assets\Scripts\UIElements\Buttons\StartButton.cs" />
      <Compile Include="Assets\Scripts\UIElements\Inputs\BetaInput.cs" />

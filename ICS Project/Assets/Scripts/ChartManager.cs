@@ -10,12 +10,18 @@ public class ChartManager : MonoBehaviour
     DrawData data = DrawData.GetInstance;
     public void UpdateData(int[] stats)
     {
-        data.SeriesS.Add(stats[1]);
-        data.SeriesE.Add(stats[2]);
-        data.SeriesI.Add(stats[3]);
-        data.SeriesR.Add(stats[4]);
-        data.SeriesStep.Add(stats[5]);
-        Globals.DrawChartMethod(data);
+        Debug.Log( string.Join("/",stats));
+        
+        if (stats[5] <= Globals.Steps)
+        {
+            Globals.UpdateChartMethod(stats);
+            data.SeriesS[stats[5]] = stats[1];
+            data.SeriesE[stats[5]] = stats[2];
+            data.SeriesI[stats[5]] = stats[3];
+            data.SeriesR[stats[5]] = stats[4];
+            data.SeriesStep[stats[5]] = stats[5];
+            
+        }
     }
 
     public void Awake()

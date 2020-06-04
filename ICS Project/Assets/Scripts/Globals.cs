@@ -6,7 +6,17 @@ public static class Globals{
     public static bool IsCleared = true;
     public static int BatchSize = 100;
     public static int Steps = 30;
-
+    public static int[] Stats { get; set;} = { 6, 0, 0, 0, 0, 0 };
+    
+    public static Stats stats = new Stats
+    {
+        S = 0,
+        E = 0, 
+        I = 0,
+        R = 0, 
+        Step = 0
+    };
+    
     public static Parameters Parameters = new Parameters
     {
         Radius = 2,
@@ -48,13 +58,13 @@ public static class Globals{
     //create Delegats
     public delegate void StartDelegate();
     public delegate void ClearDeletgate();
-    public delegate void DrawChart(DrawData drawData);
+    public delegate void UpdateChart(int[] stats);
     public delegate void ClearChart();
 
     //definitions delegats
     public static StartDelegate StartMethod;
     public static ClearDeletgate ClearMethod;
-    public static DrawChart DrawChartMethod;
+    public static UpdateChart UpdateChartMethod;
     public static ClearChart ClearChartMethod;
 }
 }
