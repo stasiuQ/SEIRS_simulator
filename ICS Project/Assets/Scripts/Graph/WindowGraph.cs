@@ -9,31 +9,60 @@ namespace Seirs.Graph
 {
   public class WindowGraph : MonoBehaviour { 
       
-      private static WindowGraph instance;
+      private static WindowGraph _instance;
       
       [SerializeField] private Sprite dotSprite; 
       private RectTransform graphContainer; 
       private RectTransform labelTemplateX; 
       private RectTransform labelTemplateY; 
-      private List<GameObject> gameObjectList; 
-      private List<IGraphVisualObject> graphVisualObjectList; 
-      
-      private List<int> valueList; 
-      private IGraphVisual graphVisual; 
-      private float yMaximum = 100f; 
+      private List<GameObject> gameObjectList1; 
+      private List<IGraphVisualObject> graphVisualObjectList1; 
+      private List<GameObject> gameObjectList2; 
+      private List<IGraphVisualObject> graphVisualObjectList2; 
+      private List<GameObject> gameObjectList3; 
+      private List<IGraphVisualObject> graphVisualObjectList3; 
+      private List<GameObject> gameObjectList4; 
+      private List<IGraphVisualObject> graphVisualObjectList4;
+
+      private List<int> valueList1; 
+      private List<int> valueList2; 
+      private List<int> valueList3; 
+      private List<int> valueList4;
+
+      private IGraphVisual graphVisual1; 
+      private IGraphVisual graphVisual2; 
+      private IGraphVisual graphVisual3; 
+      private IGraphVisual graphVisual4; 
+
+      private float yMaximum = Globals.AgentNumbers; 
       private float xSize; 
       private void Awake()
     {
-        instance = this;
+        _instance = this;
         if (GetGraphContainer() || GetLabelsXy()) return;
         
-        gameObjectList =  new List<GameObject>();
-        graphVisualObjectList = new List<IGraphVisualObject>();
-        valueList = new List<int>(DrawData.GetInstance.SeriesI);
-        Globals.ClearChartMethod = ClearChart;
+        gameObjectList1 =  new List<GameObject>();
+        graphVisualObjectList1 = new List<IGraphVisualObject>();
+        gameObjectList2 =  new List<GameObject>();
+        graphVisualObjectList2 = new List<IGraphVisualObject>();
+        gameObjectList3 =  new List<GameObject>();
+        graphVisualObjectList3 = new List<IGraphVisualObject>();
+        gameObjectList4 =  new List<GameObject>();
+        graphVisualObjectList4 = new List<IGraphVisualObject>();
+        
+        valueList1 = new List<int>(new int[Globals.Steps]);
+        valueList2 = new List<int>(new int[Globals.Steps]);
+        valueList3 = new List<int>(new int[Globals.Steps]);
+        valueList4 = new List<int>(new int[Globals.Steps]);
+
+        Globals.ClearChartMethod = ClearCharts;
         Globals.UpdateChartMethod = UpdateChart;
-        graphVisual = new LineGraphVisual(graphContainer, dotSprite, Color.green);
-        ShowGraph(valueList,graphVisual);
+        graphVisual1 = new LineGraphVisual(graphContainer, dotSprite, Color.green);
+        graphVisual2 = new LineGraphVisual(graphContainer, dotSprite, Color.yellow);
+        graphVisual3 = new LineGraphVisual(graphContainer, dotSprite, Color.red);
+        graphVisual4 = new LineGraphVisual(graphContainer, dotSprite, Color.blue);
+        ClearCharts();
+        ShowChart();
     }
 
     private bool GetLabelsXy()
@@ -60,32 +89,38 @@ namespace Seirs.Graph
 
     public void UpdateChart(int[] stats)
     {
-        if (Globals.stats.Step <= Globals.Steps)
+        if (Globals.Stats[5] <= Globals.Steps)
         {
-            UpdateValue(stats[5], stats[2]);
+            valueList1 = UpdateValue(valueList1, graphVisual1, graphVisualObjectList1, stats[5], stats[1]);
+            valueList2 = UpdateValue(valueList2, graphVisual2, graphVisualObjectList2,stats[5], stats[2]);
+            valueList3 = UpdateValue(valueList3, graphVisual3, graphVisualObjectList3, stats[5], stats[3]);
+            valueList4 = UpdateValue(valueList4, graphVisual4, graphVisualObjectList4,stats[5], stats[4]);
         }
     }
-    /*public void Draw(DrawData drawData)
+
+    public void ShowChart()
     {
-        ShowGraph(drawData,graphVisual);
-    }*/
-    private void ShowGraph(List<int> valueList, IGraphVisual graphVisual) {
+        ShowGraph(valueList1, gameObjectList1, graphVisualObjectList1, graphVisual1);
+        ShowGraph(valueList2, gameObjectList2, graphVisualObjectList2, graphVisual2);
+        ShowGraph(valueList3, gameObjectList3, graphVisualObjectList3, graphVisual3);
+        ShowGraph(valueList4, gameObjectList4, graphVisualObjectList4, graphVisual4);
+    }
+    private void ShowGraph(List<int> valueList, List<GameObject> gameObjectList, List<IGraphVisualObject> graphVisualObjectList, IGraphVisual graphVisual) {
         
-        this.graphVisual = graphVisual;
-        ClearChart();
-        
+        ClearChart(graphVisual, gameObjectList, graphVisualObjectList);
         var graphHeight = graphContainer.sizeDelta.y;
         var graphWidth = graphContainer.sizeDelta.x;
         xSize = graphWidth/Globals.Steps;
         
-        DrawPoints(valueList, graphVisual, xSize, yMaximum, graphHeight, Color.green);
-        //DrawPoints(drawData.SeriesE, graphVisual, xSize, yMaximum, graphHeight, Color.yellow);
-        //DrawPoints(drawData.SeriesI, graphVisual, xSize, yMaximum, graphHeight, Color.red);
-        //DrawPoints(drawData.SeriesR, graphVisual, xSize, yMaximum, graphHeight, Color.blue);
-
+        DrawPoints(valueList, graphVisual, gameObjectList, graphVisualObjectList, xSize, yMaximum, graphHeight);
     }
-    
-    private void ClearChart()
+
+    public void ClearCharts()
+    {
+        ClearChart(graphVisual1, gameObjectList1, graphVisualObjectList1);
+        ClearChart(graphVisual1, gameObjectList2, graphVisualObjectList2);
+    }
+    private void ClearChart(IGraphVisual graphVisual, List<GameObject> gameObjectList, List<IGraphVisualObject> graphVisualObjectList )
     {
         foreach (GameObject gameObject in gameObjectList)
         {
@@ -100,23 +135,27 @@ namespace Seirs.Graph
         graphVisual.CleanUp();
     }
     
-    private void DrawPoints(IReadOnlyList<int> valueList, IGraphVisual graphVisual, float xSize, float yMaximum, float graphHeight, Color color)
+    private void DrawPoints(IReadOnlyList<int> valueList, IGraphVisual graphVisual, List<GameObject> gameObjectList, List<IGraphVisualObject> graphVisualObjectList, float xSize, float yMaximum, float graphHeight)
     {
+        int proportionX = Globals.Steps / 10;
+        int proportionY = Globals.AgentNumbers / 10;
         for (var i = 0; i < valueList.Count; i++)
         {
             var xPosition = i * xSize;
             var yPosition = (valueList[i] / yMaximum) * graphHeight;
             graphVisualObjectList.Add(graphVisual.CreateGraphVisualObject(new Vector2(xPosition, yPosition), xSize));
-            
-            RectTransform labelX = Instantiate(labelTemplateX);
-            labelX.SetParent(graphContainer, false);
-            labelX.gameObject.SetActive(true);
-            labelX.anchoredPosition = new Vector2(xPosition, -7f);
-            labelX.GetComponent<Text>().text = i.ToString();
-            gameObjectList.Add(labelX.gameObject);
+            if (i % proportionX == 0)
+            {
+                RectTransform labelX = Instantiate(labelTemplateX);
+                labelX.SetParent(graphContainer, false);
+                labelX.gameObject.SetActive(true);
+                labelX.anchoredPosition = new Vector2(xPosition, -7f);
+                labelX.GetComponent<Text>().text = i.ToString();
+                gameObjectList.Add(labelX.gameObject);
+            }
         }
         int separatorCount = Globals.Steps;
-        for (var i = 0; i <= separatorCount; i++)
+        for (var i = 0; i <= separatorCount; i+= separatorCount/proportionY)
         {
             RectTransform labelY = Instantiate(labelTemplateY);
             labelY.SetParent(graphContainer, false);
@@ -127,22 +166,24 @@ namespace Seirs.Graph
             gameObjectList.Add(labelY.gameObject);
         }
     }
-    private void UpdateValue(int index, int value)
+    private List<int> UpdateValue(List<int> valueList, IGraphVisual graphVisual, List<IGraphVisualObject> graphVisualObjectList,  int index, int value)
     {
-        float graphHeight = graphContainer.sizeDelta.y;
-        valueList[index] = value;
-        var xPosition = index * xSize;
-        var yPosition = (value/ yMaximum) * graphHeight;
-        IGraphVisualObject graphVisualObject =
-            graphVisual.CreateGraphVisualObject(new Vector2(xPosition, yPosition), xSize);
-        graphVisualObjectList[index].SetGraphVisualObjectInfo(new Vector2(xPosition, yPosition), xSize);
+        Debug.Log(index.ToString());
+        if (index < Globals.Steps-1)
+        {
+            float graphHeight = graphContainer.sizeDelta.y;
+            valueList[index] = value;
+            var xPosition = index * xSize;
+            var yPosition = (value/ yMaximum) * graphHeight;
+            graphVisualObjectList[index].SetGraphVisualObjectInfo(new Vector2(xPosition, yPosition), xSize);
+        }
+        return valueList;
     }
 
     
     private interface IGraphVisual
     {
         IGraphVisualObject CreateGraphVisualObject(Vector2 graphPosition, float graphPositionWidth);
-
         void CleanUp();
     }
     
@@ -151,65 +192,7 @@ namespace Seirs.Graph
         void SetGraphVisualObjectInfo(Vector2 graphPosition, float graphPositionWidth);
         void CleanUp();
     }
-    /*
-    private class BarChartVisual : IGraphVisual
-    {
-        private RectTransform graphContainer;
-        private Color barColor;
-        private float barWidthMultiplier;
 
-        public BarChartVisual(RectTransform graphContainer, Color barColor, float barWidthMultiplier)
-        {
-            this.graphContainer = graphContainer;
-            this.barColor = barColor;
-            this.barWidthMultiplier = barWidthMultiplier;
-        }
-
-        public IGraphVisualObject CreateGraphVisualObject(Vector2 graphPosition, float graphPositionWidth)
-        {
-            GameObject barGameObject = CreateBar(graphPosition, graphPositionWidth * 0.9f);
-            BarChartVisualObject barChartVisualObject = new BarChartVisualObject(barGameObject, barWidthMultiplier);
-            barChartVisualObject.SetGraphVisualObjectInfo(graphPosition, graphPositionWidth);
-            return barChartVisualObject;
-        }
-        private GameObject CreateBar(Vector2 graphPosition, float barWidth)
-        {
-            GameObject gameObject = new GameObject("bar", typeof(Image));
-            gameObject.transform.SetParent(graphContainer, false);
-            gameObject.GetComponent<Image>().color = barColor;
-            var rectTransform = gameObject.GetComponent<RectTransform>();
-            rectTransform.anchoredPosition = new Vector2(graphPosition.x, 0f);
-            rectTransform.sizeDelta = new Vector2(barWidth * barWidthMultiplier, graphPosition.y);
-            rectTransform.anchorMin = new Vector2(0, 0);
-            rectTransform.anchorMax = new Vector2(0, 0);
-            rectTransform.pivot = new Vector2(.5f, 0f);
-            return gameObject;
-        }
-
-        public class BarChartVisualObject : IGraphVisualObject
-        {
-            private GameObject barGameObject;
-            private float barWidthMultiplier;
-            public BarChartVisualObject(GameObject barGameObject, float barWidthMultiplier)
-            {
-                this.barGameObject = barGameObject;
-                this.barWidthMultiplier = barWidthMultiplier;
-
-            }
-            public void SetGraphVisualObjectInfo(Vector2 graphPosition, float graphPositionWidth)
-            {
-                RectTransform rectTransform = barGameObject.GetComponent<RectTransform>();
-                rectTransform.anchoredPosition = new Vector2(graphPosition.x, 0f);
-                rectTransform.sizeDelta = new Vector2(graphPositionWidth * barWidthMultiplier, graphPosition.y);
-            }
-
-            public void CleanUp()
-            {
-                Destroy(barGameObject);
-            }
-        }
-    }
-    */
     private class LineGraphVisual : IGraphVisual
     {
         private RectTransform graphContainer;
@@ -229,15 +212,13 @@ namespace Seirs.Graph
         }
         public IGraphVisualObject CreateGraphVisualObject(Vector2 graphPosition, float graphPositionWidth)
         {
-           // List<GameObject> gameObjectList = new List<GameObject>();
             GameObject dotGameObject = CreateDot(graphPosition, lineColor);
 
             //gameObjectList.Add(dotGameObject);
             GameObject dotConnectionGameObject = null;
             if (lastLineGraphVisualObject != null)
             {
-                dotConnectionGameObject = CreateDotConnection(lastLineGraphVisualObject.GetGraphPosition(),
-                    dotGameObject.GetComponent<RectTransform>().anchoredPosition, lineColor);
+                //dotConnectionGameObject = CreateDotConnection(lastLineGraphVisualObject.GetGraphPosition(), dotGameObject.GetComponent<RectTransform>().anchoredPosition, lineColor);
                 //gameObjectList.Add(dotConnectionGameObject);
             }
             
@@ -255,7 +236,7 @@ namespace Seirs.Graph
             
             var rectTransform = gameObject.GetComponent<RectTransform>();
             rectTransform.anchoredPosition = anchoredPosition;
-            rectTransform.sizeDelta = new Vector2(11, 11);
+            rectTransform.sizeDelta = new Vector2(5, 5);
             rectTransform.anchorMin = new Vector2(0, 0);
             rectTransform.anchorMax = new Vector2(0, 0);
             return gameObject;

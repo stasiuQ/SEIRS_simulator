@@ -11,7 +11,6 @@ namespace Seirs
         private const int agentSizeIndex = 0;
         [SerializeField] private Agent agentPrefab;
         [SerializeField] private Transform agentsRoot;
-
         public Agent AgentPrefab { get => agentPrefab; set => agentPrefab = value; }
         public Dictionary<int, Agent> Agents { get; set; }
         public Transform AgentsRoot { get => agentsRoot; set => agentsRoot = value; }

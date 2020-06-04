@@ -19,8 +19,6 @@ public class AgentSimulationManager : MonoBehaviour
     public static event Action<double[]> OnAddHomes;
     public static event Action OnDestroyHomes;
     public static event Action<int[]> OnChartUpdate;
-    
-    //public int[] Stats { get; set;} = { 6, 0, 0, 0, 0, 0 };
     public int StepsPerSec { get => stepsPerSec; set { stepsPerSec = value; waitTime = 1.0 / stepsPerSec; }}
     public int AgentsCount { get => agentsCount; set { agentsCount = value; size = (agentsCount * 3) + 1; } }
     public Transform Plane { get => plane; set => plane = value; }
@@ -68,7 +66,7 @@ public class AgentSimulationManager : MonoBehaviour
         Globals.Parameters = Globals.ParametersEdited;
         Debug.Log("StartPauseSimulation");
         if(Globals.IsCleared)
-        {
+        {    
             CreateSymulation();
         }
 

@@ -10,7 +10,7 @@ namespace UIElements.Buttons
         {
             Globals.ClearMethod();
             Globals.ClearChartMethod();
-            DrawData.GetInstance.clearData();
+            //DrawData.GetInstance.clearData();
         }
     }
 }
