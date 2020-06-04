@@ -77,6 +77,7 @@
           <e p="ChartManager.cs" t="Include" />
           <e p="Globals.cs" t="Include" />
           <e p="Graph" t="Include">
+            <e p="Example.cs" t="Include" />
             <e p="WindowGraph.cs" t="Include" />
           </e>
           <e p="Home.cs" t="Include" />

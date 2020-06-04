@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using CodeMonkey.Utils;
-using Seirs.Models;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -29,10 +26,10 @@ namespace Seirs.Graph
       private List<int> valueList3; 
       private List<int> valueList4;
 
-      private IGraphVisual graphVisual1; 
-      private IGraphVisual graphVisual2; 
-      private IGraphVisual graphVisual3; 
-      private IGraphVisual graphVisual4; 
+      private LineGraphVisual graphVisual1; 
+      private LineGraphVisual graphVisual2; 
+      private LineGraphVisual graphVisual3; 
+      private LineGraphVisual graphVisual4; 
 
       private float yMaximum = Globals.AgentNumbers; 
       private float xSize; 
@@ -105,7 +102,7 @@ namespace Seirs.Graph
         ShowGraph(valueList3, gameObjectList3, graphVisualObjectList3, graphVisual3);
         ShowGraph(valueList4, gameObjectList4, graphVisualObjectList4, graphVisual4);
     }
-    private void ShowGraph(List<int> valueList, List<GameObject> gameObjectList, List<IGraphVisualObject> graphVisualObjectList, IGraphVisual graphVisual) {
+    private void ShowGraph(List<int> valueList, List<GameObject> gameObjectList, List<IGraphVisualObject> graphVisualObjectList, LineGraphVisual graphVisual) {
         
         ClearChart(graphVisual, gameObjectList, graphVisualObjectList);
         var graphHeight = graphContainer.sizeDelta.y;
@@ -118,9 +115,11 @@ namespace Seirs.Graph
     public void ClearCharts()
     {
         ClearChart(graphVisual1, gameObjectList1, graphVisualObjectList1);
-        ClearChart(graphVisual1, gameObjectList2, graphVisualObjectList2);
+        ClearChart(graphVisual2, gameObjectList2, graphVisualObjectList2);
+        ClearChart(graphVisual3, gameObjectList3, graphVisualObjectList3);
+        ClearChart(graphVisual4, gameObjectList4, graphVisualObjectList4);
     }
-    private void ClearChart(IGraphVisual graphVisual, List<GameObject> gameObjectList, List<IGraphVisualObject> graphVisualObjectList )
+    private void ClearChart(LineGraphVisual graphVisual, List<GameObject> gameObjectList, List<IGraphVisualObject> graphVisualObjectList )
     {
         foreach (GameObject gameObject in gameObjectList)
         {
@@ -135,7 +134,7 @@ namespace Seirs.Graph
         graphVisual.CleanUp();
     }
     
-    private void DrawPoints(IReadOnlyList<int> valueList, IGraphVisual graphVisual, List<GameObject> gameObjectList, List<IGraphVisualObject> graphVisualObjectList, float xSize, float yMaximum, float graphHeight)
+    private void DrawPoints(IReadOnlyList<int> valueList, LineGraphVisual graphVisual, List<GameObject> gameObjectList, List<IGraphVisualObject> graphVisualObjectList, float xSize, float yMaximum, float graphHeight)
     {
         int proportionX = Globals.Steps / 10;
         int proportionY = Globals.AgentNumbers / 10;
@@ -166,7 +165,7 @@ namespace Seirs.Graph
             gameObjectList.Add(labelY.gameObject);
         }
     }
-    private List<int> UpdateValue(List<int> valueList, IGraphVisual graphVisual, List<IGraphVisualObject> graphVisualObjectList,  int index, int value)
+    private List<int> UpdateValue(List<int> valueList, LineGraphVisual graphVisual, List<IGraphVisualObject> graphVisualObjectList,  int index, int value)
     {
         Debug.Log(index.ToString());
         if (index < Globals.Steps-1)
@@ -177,54 +176,50 @@ namespace Seirs.Graph
             var yPosition = (value/ yMaximum) * graphHeight;
             graphVisualObjectList[index].SetGraphVisualObjectInfo(new Vector2(xPosition, yPosition), xSize);
         }
+
         return valueList;
     }
 
-    
-    private interface IGraphVisual
-    {
-        IGraphVisualObject CreateGraphVisualObject(Vector2 graphPosition, float graphPositionWidth);
-        void CleanUp();
+    private GameObject CreateDot(Vector2 anchoredPosition, Color color) {
+        GameObject gameObject = new GameObject("dot", typeof(Image));
+        gameObject.transform.SetParent(graphContainer, false);
+        gameObject.GetComponent<Image>().sprite = dotSprite;
+        gameObject.GetComponent<Image>().color = color;
+            
+        var rectTransform = gameObject.GetComponent<RectTransform>();
+        rectTransform.anchoredPosition = anchoredPosition;
+        rectTransform.sizeDelta = new Vector2(5, 5);
+        rectTransform.anchorMin = new Vector2(0, 0);
+        rectTransform.anchorMax = new Vector2(0, 0);
+        return gameObject;
     }
-    
+
     private interface IGraphVisualObject
     {
         void SetGraphVisualObjectInfo(Vector2 graphPosition, float graphPositionWidth);
         void CleanUp();
     }
+    
 
-    private class LineGraphVisual : IGraphVisual
+    private class LineGraphVisual
     {
         private RectTransform graphContainer;
         private Sprite dotSprite;
-        private LineGraphVisualObject lastLineGraphVisualObject;
         private Color lineColor;
         public LineGraphVisual(RectTransform graphContainer, Sprite dotSprite, Color lineColor)
         {
             this.graphContainer = graphContainer;
             this.dotSprite = dotSprite;
-            lastLineGraphVisualObject = null;
             this.lineColor = lineColor;
         }
         
         public void CleanUp() {
-            lastLineGraphVisualObject = null;
         }
         public IGraphVisualObject CreateGraphVisualObject(Vector2 graphPosition, float graphPositionWidth)
         {
-            GameObject dotGameObject = CreateDot(graphPosition, lineColor);
-
-            //gameObjectList.Add(dotGameObject);
-            GameObject dotConnectionGameObject = null;
-            if (lastLineGraphVisualObject != null)
-            {
-                //dotConnectionGameObject = CreateDotConnection(lastLineGraphVisualObject.GetGraphPosition(), dotGameObject.GetComponent<RectTransform>().anchoredPosition, lineColor);
-                //gameObjectList.Add(dotConnectionGameObject);
-            }
-            
-            LineGraphVisualObject lineGraphVisualObject = new LineGraphVisualObject(dotGameObject, dotConnectionGameObject, null);
+            GameObject dotGameObject = CreateDot(graphPosition, lineColor); ;
+            LineGraphVisualObject lineGraphVisualObject = new LineGraphVisualObject(dotGameObject);
             lineGraphVisualObject.SetGraphVisualObjectInfo(graphPosition, graphPositionWidth);
-            lastLineGraphVisualObject = lineGraphVisualObject;
             return lineGraphVisualObject;
         }
         
@@ -241,58 +236,24 @@ namespace Seirs.Graph
             rectTransform.anchorMax = new Vector2(0, 0);
             return gameObject;
         }
-    
-        private GameObject CreateDotConnection(Vector2 dotPositionA, Vector2 dotPositionB, Color color) {
-            GameObject dotConnection = new GameObject("dotConnection", typeof(Image));
-            dotConnection.transform.SetParent(graphContainer, false);
-            dotConnection.GetComponent<Image>().color = color;
-            dotConnection.GetComponent<Image>().raycastTarget = false;
-            var rectTransform = dotConnection.GetComponent<RectTransform>();
-            var dir = (dotPositionB - dotPositionA).normalized;
-            var distance = Vector2.Distance(dotPositionA, dotPositionB);
-            rectTransform.anchorMin = new Vector2(0, 0);
-            rectTransform.anchorMax = new Vector2(0, 0);
-            rectTransform.sizeDelta = new Vector2(distance, 3f);
-            rectTransform.anchoredPosition = dotPositionA + (dir * (distance * .5f));
-            rectTransform.localEulerAngles = new Vector3(0, 0, UtilsClass.GetAngleFromVectorFloat(dir));
-            return dotConnection;
-        }
         
         public class LineGraphVisualObject : IGraphVisualObject
         {
-            public event EventHandler OnChangedGraphVisualObjectInfo;
             private GameObject dotGameObject;
-            private GameObject dotConnectionGameObject;
-            private LineGraphVisualObject lastVisualObject;
-            public LineGraphVisualObject(GameObject dotGameObject, GameObject dotConnectionGameObject, LineGraphVisualObject lastVisualObject)
+            public LineGraphVisualObject(GameObject dotGameObject)
             {
                 this.dotGameObject = dotGameObject;
-                this.dotConnectionGameObject = dotConnectionGameObject;
-                this.lastVisualObject = lastVisualObject;
-
-                if (lastVisualObject != null)
-                {
-                    lastVisualObject.OnChangedGraphVisualObjectInfo += LastVisualObject_OnChangedGraphVisualObjectInfo;
-                }
-            }
-
-            private void LastVisualObject_OnChangedGraphVisualObjectInfo(object sender, EventArgs e)
-            {
-                UpdateDotConnection();
             }
 
             public void SetGraphVisualObjectInfo(Vector2 graphPosition, float graphPositionWidth)
             {
                 var rectTransform = dotGameObject.GetComponent<RectTransform>();
                 rectTransform.anchoredPosition = graphPosition;
-                UpdateDotConnection();
-                if (OnChangedGraphVisualObjectInfo != null) OnChangedGraphVisualObjectInfo(this, EventArgs.Empty);
             }
 
             public void CleanUp()
             {
                 Destroy(dotGameObject);
-                Destroy(dotConnectionGameObject);
             }
 
             public Vector2 GetGraphPosition()
@@ -300,19 +261,7 @@ namespace Seirs.Graph
                 var rectTransform = dotGameObject.GetComponent<RectTransform>();
                 return rectTransform.anchoredPosition;
             }
-
-            private void UpdateDotConnection()
-            {
-                if (dotConnectionGameObject != null && lastVisualObject !=null)
-                {
-                    RectTransform dotCOnnectionRectTransform = dotConnectionGameObject.GetComponent<RectTransform>();
-                    Vector2 dir = (lastVisualObject.GetGraphPosition() - GetGraphPosition()).normalized;
-                    float distance = Vector2.Distance(GetGraphPosition(), lastVisualObject.GetGraphPosition());
-                    dotCOnnectionRectTransform.sizeDelta = new Vector2(distance, 3f);
-                    dotCOnnectionRectTransform.anchoredPosition = GetGraphPosition() + dir * distance * .5f;
-                    dotCOnnectionRectTransform.localEulerAngles = new Vector3(0, 0, UtilsClass.GetAngleFromVectorFloat(dir));
-                }
-            }
+            
         }
     }
   }

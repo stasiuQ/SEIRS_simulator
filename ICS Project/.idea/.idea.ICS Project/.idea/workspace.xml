@@ -25,27 +25,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6916f9fc-d5da-4b4a-b10e-6b9fe2e4edcf" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.ICS Project/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.ICS Project/.idea/contentModel.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.ICS Project/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.ICS Project/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assembly-CSharp.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Assembly-CSharp.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/AgentManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/AgentManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/AgentSimulationManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/AgentSimulationManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ChartManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ChartManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Globals.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Globals.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Graph/Example.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Graph/Example.cs.meta" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Graph/WindowGraph.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Graph/WindowGraph.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Models/DrawData.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Models/DrawData.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Models/Stats.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Models/Stats.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UIElements/Buttons/ClearButton.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UIElements/Buttons/ClearButton.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Library/ProtocolInstance.json" beforeDir="false" afterPath="$PROJECT_DIR$/Library/ProtocolInstance.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Library/ScriptAssemblies/Assembly-CSharp.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Library/ScriptAssemblies/Assembly-CSharp.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Library/ScriptAssemblies/Assembly-CSharp.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Library/ScriptAssemblies/Assembly-CSharp.pdb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Library/ScriptAssemblies/BuiltinAssemblies.stamp" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Library/SourceAssetDB" beforeDir="false" afterPath="$PROJECT_DIR$/Library/SourceAssetDB" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Library/StateCache/Hierarchy/864b5a-mainStage.json" beforeDir="false" afterPath="$PROJECT_DIR$/Library/StateCache/Hierarchy/864b5a-mainStage.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/output_data.txt" beforeDir="false" afterPath="$PROJECT_DIR$/output_data.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -107,13 +93,13 @@
         <option value="$PROJECT_DIR$/Assets/Scripts/Services/IGraphService.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Models/DrawData.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Models/Stats.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Graph/Example.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/UIElements/Inputs/StepsInput.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/AgentSimulationManager.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/AgentManager.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Globals.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/UIElements/Buttons/ClearButton.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/ChartManager.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Graph/Example.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Graph/WindowGraph.cs" />
       </list>
     </option>
@@ -162,7 +148,7 @@
       <workItem from="1591126910308" duration="8633000" />
       <workItem from="1591169248828" duration="6308000" />
       <workItem from="1591189972073" duration="22002000" />
-      <workItem from="1591254734142" duration="15147000" />
+      <workItem from="1591254734142" duration="19553000" />
     </task>
     <task id="LOCAL-00001" summary="[gitignore] clear">
       <created>1590841438625</created>
@@ -325,6 +311,10 @@
       <screen x="0" y="30" width="1920" height="1050" />
     </state>
     <state width="1876" height="374" key="GridCell.Tab.5.right/-1920.35.1920.1050/0.30.1920.1050@0.30.1920.1050" timestamp="1590918115826" />
+    <state x="453" y="149" key="RiderGenerateDialog" timestamp="1591274135775">
+      <screen x="0" y="30" width="1536" height="834" />
+    </state>
+    <state x="453" y="149" key="RiderGenerateDialog/0.30.1536.834/-1920.-647.1920.1050@0.30.1536.834" timestamp="1591274135775" />
     <state x="93" y="123" width="1350" height="648" key="VCS.FileHistoryDialog" timestamp="1591132011912">
       <screen x="0" y="30" width="1536" height="834" />
     </state>
