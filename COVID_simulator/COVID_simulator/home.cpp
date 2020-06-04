@@ -1,13 +1,18 @@
+#include "globalParameters.h"
 #include "home.h"
 
 Home::Home(double i, double j, double radius)
 {
+	this->i = i;
+	this->j = j;
 	this->radius = radius;
-	this->mobilityModifier = mobilityModifier;
+	this->mobilityModifier = GlobalParameters::get_mobilityModifier();
 }
 
 Home::Home()
 {
+	this->i = 0.;
+	this->j = 0.;
 	this->radius = 0.;
 	this->mobilityModifier = 1.;
 }

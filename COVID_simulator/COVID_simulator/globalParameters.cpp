@@ -5,6 +5,7 @@ double GlobalParameters::size;
 double GlobalParameters::radius;
 double GlobalParameters::mobility;
 double GlobalParameters::concentration;
+int GlobalParameters::initialInfected;
 
 double GlobalParameters::beta; // S -> E
 double GlobalParameters::epsilon;  // E -> I
@@ -25,7 +26,7 @@ double GlobalParameters::spreadingModifier;
 void GlobalParameters::load(string name)
 {
 	fstream ini_file;
-	double paramTable[10];    // Update when new parameter in Global changes!
+	double paramTable[17];    // Update when new parameter in Global changes!
 	ini_file.open(name, ios::in);
 	if (!ini_file.good()) {
 		cout << "Inicialization file corrupted!" << endl;
@@ -34,7 +35,7 @@ void GlobalParameters::load(string name)
 	else
 	{
 		int iterator = 0;
-		while (!ini_file.eof() && (iterator < 9))
+		while (!ini_file.eof() && (iterator < 17))
 		{
 			string my_string;
 			getline(ini_file, my_string);
@@ -59,6 +60,13 @@ void GlobalParameters::load(string name)
 		mu = paramTable[8];
 		rho = paramTable[9];
 
+		linearZonesDensity = static_cast<int>(paramTable[10]);
+		wearingMaskProbability = paramTable[11];
+		beingCourierProbability = paramTable[12];
+		homeInZoneProbability = paramTable[13];
+		mobilityModifier = paramTable[14];
+		radiusModifier = paramTable[15];
+		spreadingModifier = paramTable[16];
 
 		ini_file.close();
 	}
@@ -77,6 +85,14 @@ void GlobalParameters::load(vector<double>& parameters)
 	epsilon = parameters[7];
 	mu = parameters[8];
 	rho = parameters[9];
+
+	linearZonesDensity = static_cast<int>(parameters[10]);
+	wearingMaskProbability = parameters[11];
+	beingCourierProbability = parameters[12];
+	homeInZoneProbability = parameters[13];
+	mobilityModifier = parameters[14];
+	radiusModifier = parameters[15];
+	spreadingModifier = parameters[16];
 }
 
 double GlobalParameters::get_dt()

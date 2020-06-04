@@ -47,6 +47,7 @@ public:
 	bool detectHome(double i, double j);
 	void updateStatistics();
 	void printStatistics();
+	vector<vector<double>> outputInterface();
 
 	int ijTo_k(int i, int j);
 };
