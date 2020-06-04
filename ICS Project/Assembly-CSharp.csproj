@@ -73,6 +73,8 @@
     <Compile Include="Assets\Scripts\HomeManager.cs" />
     <Compile Include="Assets\Scripts\Models\Instruction.cs" />
     <Compile Include="Assets\Scripts\Models\Parameters.cs" />
+    <Compile Include="Assets\Scripts\Point.cs" />
+    <Compile Include="Assets\Scripts\PointManager.cs" />
     <Compile Include="Assets\Scripts\UIElements\Buttons\ClearButton.cs" />
     <Compile Include="Assets\Scripts\UIElements\Buttons\StartButton.cs" />
     <Compile Include="Assets\Scripts\UIElements\Inputs\BetaInput.cs" />
