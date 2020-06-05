@@ -12,7 +12,7 @@ namespace Seirs
 
         public static bool State = false;
         public static bool IsCleared = true;
-        public static int Steps = 5000;
+        public static int Steps = 3000;
         public static int StepsEdited = Steps;
         public static int AgentNumbers = 320;
         public static int CurrentStep = 0;

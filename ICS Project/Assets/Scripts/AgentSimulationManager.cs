@@ -2,6 +2,7 @@
 using System.Runtime.InteropServices;
 using Seirs;
 using Seirs.Models;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -17,9 +18,9 @@ public class AgentSimulationManager : MonoBehaviour
     [SerializeField] private Toggle isolation;
     [SerializeField] private Toggle masks;
     [SerializeField] private Transform plane;
+    [SerializeField] private TMP_InputField stepsInput;
     public int simulationStep;
     private int size;
-    [SerializeField] public InputField steps;
     private int stepsPerSec = 20;
     private double waitTime;
 
@@ -108,6 +109,8 @@ public class AgentSimulationManager : MonoBehaviour
         if (Globals.IsCleared)
         {
             CreateSymulation();
+            Globals.InitChartMethod();
+            
         }
 
         if (!Globals.State)
@@ -164,7 +167,7 @@ public class AgentSimulationManager : MonoBehaviour
             SendDLL(Instruction.InitializeMasks.ToInt(), Globals.Parameters.ToDoubleArray(), agentState, Globals.Stats,
                 homes);
         }
-
+        
         isolation.enabled = false;
         couriers.enabled = false;
         masks.enabled = false;
@@ -180,13 +183,13 @@ public class AgentSimulationManager : MonoBehaviour
         {
             OnDestroyHomes?.Invoke();
         }
-
         Globals.CurrentStep = 0;
         Globals.State = false;
         Globals.IsCleared = true;
         isolation.enabled = true;
         couriers.enabled = true;
         masks.enabled = true;
+        stepsInput.enabled = true;
         simulationStep = 0;
     }
 
@@ -202,7 +205,8 @@ public class AgentSimulationManager : MonoBehaviour
             SendDLL(Instruction.ProceedSimulation.ToInt(), Globals.Parameters.ToDoubleArray(), agentState,
                 Globals.Stats, homes);
         }
-        
+
+        stepsInput.enabled = false;
         Globals.UpdateChartMethod();
         OnNextStep?.Invoke(agentState, (float) Globals.Parameters.Radius);
     }

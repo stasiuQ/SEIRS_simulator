@@ -13,7 +13,6 @@ namespace UIElements.Buttons
                 Globals.MaxPointDraw = 750;
             Globals.ClearMethod();
             Globals.ClearChartMethod();
-            //DrawData.GetInstance.clearData();
         }
     }
 }

@@ -7,7 +7,6 @@ namespace Seirs.UI.Buttons
         public void ChangeState()
         {
             Globals.StartMethod();
-            Globals.InitChartMethod();
         }
     }
 }
