@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -182,7 +183,7 @@ namespace Seirs.Graph
                     var labelX = Instantiate(labelTemplateX, graphContainer, false);
                     labelX.gameObject.SetActive(true);
                     labelX.anchoredPosition = new Vector2(xPosition, -7f);
-                    labelX.GetComponent<Text>().text = (i*proportionPoints).ToString();
+                    labelX.GetComponent<Text>().text = (i * proportionPoints).ToString();
                     gameObjectList.Add(labelX.gameObject);
                 }
             }
