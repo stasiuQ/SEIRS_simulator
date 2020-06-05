@@ -20,9 +20,10 @@ namespace Seirs.Models
         public double MobilityCouriers { get; set; }
         public double RadiusMask { get; set; }
         public double SpreadingMask { get; set; }
+
         public double[] ToDoubleArray()
         {
-            return new double[]
+            return new[]
             {
                 SizeParams, Dt, Size, Radius, Mobility, Concentration, Infected, Beta, Epsilon, Mu, Rho, LinearZones,
                 ProbWearingMask, ProbBeingCourier, ProbHomeInZone, MobilityCouriers, RadiusMask, SpreadingMask

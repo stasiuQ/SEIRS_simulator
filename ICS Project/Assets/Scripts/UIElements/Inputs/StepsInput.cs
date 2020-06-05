@@ -1,6 +1,5 @@
-﻿using UnityEngine;
-using UnityEngine.UI;
-using TMPro;
+﻿using TMPro;
+using UnityEngine;
 
 namespace Seirs.UI.Inputs
 {
@@ -10,7 +9,7 @@ namespace Seirs.UI.Inputs
 
         public void Start()
         {
-            field.text = Globals.Steps.ToString(); 
+            field.text = Globals.Steps.ToString();
         }
 
         public void Set()

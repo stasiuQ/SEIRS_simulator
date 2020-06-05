@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 [RequireComponent(typeof(Renderer))] // require from object to have Renderer script
 public class Home : MonoBehaviour
@@ -9,7 +7,11 @@ public class Home : MonoBehaviour
 
     public int Id { get; set; }
 
-    public Vector3 BaseScale { get => baseScale; set => baseScale = value; }
+    public Vector3 BaseScale
+    {
+        get => baseScale;
+        set => baseScale = value;
+    }
 
     public void SetPosition(float x, float z, float y = 0)
     {
@@ -20,5 +22,4 @@ public class Home : MonoBehaviour
     {
         transform.localScale = baseScale * r;
     }
-
 }

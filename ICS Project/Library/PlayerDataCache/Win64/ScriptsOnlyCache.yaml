@@ -1,10 +1,7 @@
 ScriptsOnlyBuild:
   usedScripts:
-    Assembly-CSharp-firstpass.dll:
-    - CodeMonkey.Assets
     Assembly-CSharp.dll:
     - AgentSimulationManager
-    - ChartManager
     - Home
     - HomeManager
     - Seirs.Agent
@@ -28,6 +25,7 @@ ScriptsOnlyBuild:
     - Seirs.UI.Inputs.SpreadingMaskInput
     - Seirs.UI.Inputs.StepsInput
     - UIElements.Buttons.ClearButton
+    - UIElements.Buttons.QuitButton
     Unity.Rider.Editor.dll:
     - Packages.Rider.Editor.RiderScriptEditorData
     - Packages.Rider.Editor.UnitTesting.CallbackData
@@ -89,95 +87,97 @@ ScriptsOnlyBuild:
     - Class: 109
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 11184}
+      Script: {instanceID: 11180}
     - Class: 114
-      Script: {instanceID: 11220}
+      Script: {instanceID: 11216}
     - Class: 114
-      Script: {instanceID: 11296}
+      Script: {instanceID: 11292}
     - Class: 114
-      Script: {instanceID: 11344}
+      Script: {instanceID: 11340}
     - Class: 114
-      Script: {instanceID: 11384}
+      Script: {instanceID: 11380}
     - Class: 114
-      Script: {instanceID: 11412}
+      Script: {instanceID: 11404}
     - Class: 114
-      Script: {instanceID: 11466}
+      Script: {instanceID: 11456}
     - Class: 114
-      Script: {instanceID: 11508}
+      Script: {instanceID: 11498}
+    - Class: 114
+      Script: {instanceID: 11574}
     - Class: 114
       Script: {instanceID: 11584}
     - Class: 114
-      Script: {instanceID: 11594}
+      Script: {instanceID: 11604}
     - Class: 114
-      Script: {instanceID: 11614}
+      Script: {instanceID: 11616}
     - Class: 114
-      Script: {instanceID: 11626}
+      Script: {instanceID: 11664}
     - Class: 114
-      Script: {instanceID: 11676}
+      Script: {instanceID: 11708}
     - Class: 114
-      Script: {instanceID: 11722}
+      Script: {instanceID: 11724}
     - Class: 114
-      Script: {instanceID: 11738}
+      Script: {instanceID: 11780}
     - Class: 114
-      Script: {instanceID: 11794}
+      Script: {instanceID: 11806}
     - Class: 114
-      Script: {instanceID: 11820}
+      Script: {instanceID: 11914}
     - Class: 114
-      Script: {instanceID: 11928}
+      Script: {instanceID: 11944}
     - Class: 114
-      Script: {instanceID: 11958}
+      Script: {instanceID: 12014}
     - Class: 114
-      Script: {instanceID: 12030}
+      Script: {instanceID: 12082}
     - Class: 114
-      Script: {instanceID: 12104}
+      Script: {instanceID: 12166}
     - Class: 114
-      Script: {instanceID: 12190}
+      Script: {instanceID: 12188}
     - Class: 114
-      Script: {instanceID: 12212}
+      Script: {instanceID: 12374}
     - Class: 114
-      Script: {instanceID: 12398}
+      Script: {instanceID: 12386}
     - Class: 114
-      Script: {instanceID: 12410}
+      Script: {instanceID: 12400}
     - Class: 114
-      Script: {instanceID: 12424}
+      Script: {instanceID: 12474}
     - Class: 114
-      Script: {instanceID: 12500}
+      Script: {instanceID: 12492}
     - Class: 114
-      Script: {instanceID: 12518}
+      Script: {instanceID: 12586}
     - Class: 114
-      Script: {instanceID: 12616}
+      Script: {instanceID: 12618}
     - Class: 114
-      Script: {instanceID: 12648}
+      Script: {instanceID: 12650}
     - Class: 114
-      Script: {instanceID: 12682}
+      Script: {instanceID: 12662}
     - Class: 114
-      Script: {instanceID: 12694}
+      Script: {instanceID: 12730}
     - Class: 114
-      Script: {instanceID: 12760}
+      Script: {instanceID: 12742}
     - Class: 114
-      Script: {instanceID: 12772}
-    - Class: 114
-      Script: {instanceID: 12834}
+      Script: {instanceID: 12804}
     - Class: 114
       Script: {instanceID: 12910}
     - Class: 114
-      Script: {instanceID: 12944}
+      Script: {instanceID: 12940}
     - Class: 114
-      Script: {instanceID: 12974}
+      Script: {instanceID: 12950}
     - Class: 114
-      Script: {instanceID: 12984}
+      Script: {instanceID: 13010}
     - Class: 114
-      Script: {instanceID: 13046}
+      Script: {instanceID: 13012}
     - Class: 114
-      Script: {instanceID: 13048}
+      Script: {instanceID: 13026}
     - Class: 114
-      Script: {instanceID: 13062}
+      Script: {instanceID: 13042}
     - Class: 114
-      Script: {instanceID: 13066}
+      Script: {instanceID: 13064}
     - Class: 114
-      Script: {instanceID: 13086}
+      Script: {instanceID: 14340}
     - Class: 114
-      Script: {instanceID: 13106}
+      Script: {instanceID: 14356}
+    - Class: 114
+      Script: {instanceID: 30610}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -295,12 +295,6 @@ ScriptsOnlyBuild:
     className: TestResultRendererCallback
   - hash:
       serializedVersion: 2
-      Hash: 05cede3f915399cac147f9e5eea79328
-    assemblyName: Assembly-CSharp-firstpass.dll
-    namespaceName: CodeMonkey.MonoBehaviours
-    className: PositionRendererSorter
-  - hash:
-      serializedVersion: 2
       Hash: 234235b9fb07320d11497e08a726cc56
     assemblyName: Unity.TextMeshPro.dll
     namespaceName: TMPro
@@ -313,7 +307,7 @@ ScriptsOnlyBuild:
     className: GridLayoutGroup
   - hash:
       serializedVersion: 2
-      Hash: 9f08038d051748e0e0eb92fbb28d0b69
+      Hash: fed368d25b3ff07ce6717f834c1030fe
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: AgentSimulationManager
@@ -493,12 +487,6 @@ ScriptsOnlyBuild:
     className: TMP_SpriteAnimator
   - hash:
       serializedVersion: 2
-      Hash: 5b1d3232bdaba52e260d32a9eb24296b
-    assemblyName: Assembly-CSharp-firstpass.dll
-    namespaceName: CodeMonkey.MonoBehaviours
-    className: CameraFollowSetup
-  - hash:
-      serializedVersion: 2
       Hash: 00e0e0649e0d12bc28d802594c92bc39
     assemblyName: Assembly-CSharp.dll
     namespaceName: Seirs.UI.Inputs
@@ -595,22 +583,10 @@ ScriptsOnlyBuild:
     className: ConcentrationInput
   - hash:
       serializedVersion: 2
-      Hash: 4ae5b67f312d2eb54e8bd08403c48989
+      Hash: 6d55a2927dfba16b53b6f0a04d26a23f
     assemblyName: Assembly-CSharp.dll
     namespaceName: Seirs.Graph
     className: WindowGraph
-  - hash:
-      serializedVersion: 2
-      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
-    assemblyName: Assembly-CSharp-firstpass.dll
-    namespaceName: CodeMonkey.MonoBehaviours
-    className: CameraFollow
-  - hash:
-      serializedVersion: 2
-      Hash: a2b249e27e25a975ba9d3c9b8e130910
-    assemblyName: Assembly-CSharp-firstpass.dll
-    namespaceName: CodeMonkey.Utils
-    className: Button_UI
   - hash:
       serializedVersion: 2
       Hash: 3b760e6526e13f7504f59e210145899a
@@ -673,18 +649,6 @@ ScriptsOnlyBuild:
     className: TMP_StyleSheet
   - hash:
       serializedVersion: 2
-      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: ChartManager
-  - hash:
-      serializedVersion: 2
-      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
-    assemblyName: Assembly-CSharp-firstpass.dll
-    namespaceName: CodeMonkey.MonoBehaviours
-    className: ComponentActions
-  - hash:
-      serializedVersion: 2
       Hash: df434544c9f7b33d1cc7e635b180d279
     assemblyName: Unity.TextMeshPro.dll
     namespaceName: TMPro
@@ -739,12 +703,6 @@ ScriptsOnlyBuild:
     className: TMP_SubMesh
   - hash:
       serializedVersion: 2
-      Hash: fa653120b8e2e20f2e5fa15091afeb95
-    assemblyName: Assembly-CSharp-firstpass.dll
-    namespaceName: CodeMonkey.Utils
-    className: Button_Sprite
-  - hash:
-      serializedVersion: 2
       Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
     assemblyName: UnityEngine.TestRunner.dll
     namespaceName: UnityEngine.TestRunner.Utils
@@ -775,12 +733,6 @@ ScriptsOnlyBuild:
     className: ProbHomeInZoneInput
   - hash:
       serializedVersion: 2
-      Hash: 8a2193d36589610b9a9a816079abc21d
-    assemblyName: Assembly-CSharp-firstpass.dll
-    namespaceName: CodeMonkey
-    className: Assets
-  - hash:
-      serializedVersion: 2
       Hash: aa88ae22474df55295327e4ee99e5a24
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.UI
@@ -805,7 +757,7 @@ ScriptsOnlyBuild:
     className: ToggleGroup
   - hash:
       serializedVersion: 2
-      Hash: 14fede23a0f082c843cf107115e9abed
+      Hash: 78952b6d4a7747e07f7b5fe7cc770f2d
     assemblyName: Assembly-CSharp.dll
     namespaceName: Seirs
     className: Agent
@@ -815,6 +767,12 @@ ScriptsOnlyBuild:
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
     className: PlayableTrack
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: UIElements.Buttons
+    className: QuitButton
   platform: 19
   scenePathNames:
   - Assets/Scenes/SampleScene.unity

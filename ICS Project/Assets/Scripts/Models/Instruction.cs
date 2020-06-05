@@ -12,10 +12,11 @@ namespace Seirs.Models
         ProceedSimulationWithHomes = 7
     }
 
-    public static class InstructionExtensions{
-       public static int ToInt(this Instruction toConvert)
-       {
-           return (int) toConvert;
-       }
-   }
+    public static class InstructionExtensions
+    {
+        public static int ToInt(this Instruction toConvert)
+        {
+            return (int) toConvert;
+        }
+    }
 }

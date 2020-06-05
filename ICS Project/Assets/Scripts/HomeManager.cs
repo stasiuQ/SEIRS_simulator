@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class HomeManager : MonoBehaviour
@@ -8,9 +7,19 @@ public class HomeManager : MonoBehaviour
     [SerializeField] private Home homePrefab;
     [SerializeField] private Transform homesRoot;
 
-    public Home HomePrefab { get => homePrefab; set => homePrefab = value; }
+    public Home HomePrefab
+    {
+        get => homePrefab;
+        set => homePrefab = value;
+    }
+
     public Dictionary<int, Home> Homes { get; set; }
-    public Transform HomesRoot { get => homesRoot; set => homesRoot = value; }
+
+    public Transform HomesRoot
+    {
+        get => homesRoot;
+        set => homesRoot = value;
+    }
 
     public void SetHome(int id, float x, float y, float r)
     {
@@ -21,6 +30,7 @@ public class HomeManager : MonoBehaviour
             Homes.Add(id, home);
             home.Id = id;
         }
+
         home.SetPosition(x, y);
         home.SetRadius(r);
     }
@@ -31,18 +41,15 @@ public class HomeManager : MonoBehaviour
         var id = 0;
         for (var i = 1; i < homeState.Length; i += 3)
         {
-            Debug.Log((float)homeState[i + 2]);
-            SetHome(id, (float)homeState[i], (float)homeState[i + 1], (float)homeState[i + 2]);
+            Debug.Log((float) homeState[i + 2]);
+            SetHome(id, (float) homeState[i], (float) homeState[i + 1], (float) homeState[i + 2]);
             id++;
         }
     }
 
     public void DestroyAllHomes()
     {
-        foreach (var home in Homes)
-        {
-            Destroy(home.Value.gameObject);
-        }
+        foreach (var home in Homes) Destroy(home.Value.gameObject);
         Homes.Clear();
     }
 
