@@ -36,7 +36,7 @@ namespace Interface_tester
         {
             double[] parameters = new double[] { 18, 1, 100, 2, 0.75, 0.4, 2, 0.9, 0.05, 0.005, 0, 5, 0.5, 0.05, 0.2, 3, 0.5, 0  };
 
-            int agentStateSize = 3 * (int)((parameters[2] * parameters[2] * parameters[5]) / (Math.PI * parameters[3] * parameters[3])) + 1; // 3x number of agents + 1, 955
+            int agentStateSize = 4 * (int)((parameters[2] * parameters[2] * parameters[5]) / (Math.PI * parameters[3] * parameters[3])) + 1; // 3x number of agents + 1, 955
             double[] agentState = new double[agentStateSize];
             agentState[0] = (double)agentStateSize;
 

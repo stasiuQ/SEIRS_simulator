@@ -211,7 +211,7 @@ vector<vector<double>> Simulation::outputInterface()
 {
 	vector<vector<double>> outputVector = vector<vector<double>>();
 	for (int i = 0; i < this->numberOfAgents; i++) {
-		vector<double> tempVector = vector<double>{ agents[i].get_i(), agents[i].get_j() };   // firstly pushing coordinates
+		vector<double> tempVector = vector<double>{ agents[i].get_i(), agents[i].get_j(), agents[i].get_radius() };   // firstly pushing coordinates and radius
 
 		switch (agents[i].get_type())
 		{

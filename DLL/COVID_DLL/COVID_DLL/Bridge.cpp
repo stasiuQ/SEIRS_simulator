@@ -34,12 +34,13 @@ extern "C" {
 		if (simulationState.size() > 1)   // if it is = 0;1 then we dont have to update anything in the shared memory (deletion and changing parameters case) 
 		{
 			int iterator = 1;
-			for (int i = 0; i < (simulationState.size() - 1); i++) {  // updating commonAgentsState in shared memory (without last element of a vector)
+			for (int i = 0; i < (simulationState.size() - 1); i++) {  // updating commonAgentsState in shared memory (without last 2 elements of a vector)
 				commonAgentsState[iterator] = simulationState[i][0];
 				commonAgentsState[iterator + 1] = simulationState[i][1];
 				commonAgentsState[iterator + 2] = simulationState[i][2];
+				commonAgentsState[iterator + 3] = simulationState[i][3];
 
-				iterator += 3;
+				iterator += 4;
 			}
 			for (int i = 1; i < commonStats[0]; i++) {  // updating commonStats in shared memory (second last element of simulationStatistics)
 				commonStats[i] = static_cast<int>(simulationState[simulationState.size() - 2][i - 1]);
