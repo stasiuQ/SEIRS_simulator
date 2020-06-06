@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -31,8 +32,7 @@ namespace Seirs.Graph
         private List<int> valueList3;
         private List<int> valueList4;
         private float xSize;
-
-        private readonly float yMaximum = Globals.AgentNumbers;
+        private float yMaximum;
 
         private void Awake()
         {
@@ -47,7 +47,8 @@ namespace Seirs.Graph
         public void InitChart()
         {
             if (GetGraphContainer() || GetLabelsXy()) return;
-
+            yMaximum = (int) (Globals.Parameters.Size * Globals.Parameters.Size * Globals.Parameters.Concentration /
+                              (Math.PI * Globals.Parameters.Radius * Globals.Parameters.Radius)) + 1;
             gameObjectList1 = new List<GameObject>();
             graphVisualObjectList1 = new List<IGraphVisualObject>();
             gameObjectList2 = new List<GameObject>();
@@ -147,21 +148,18 @@ namespace Seirs.Graph
             List<GameObject> gameObjectList, List<IGraphVisualObject> graphVisualObjectList, float xSize,
             float yMaximum, float graphHeight)
         {
-            int proportionX = (int)(Globals.Steps / 10); 
-            int proportionPoints = Globals.Steps / Globals.MaxPointDraw; 
-            var proportionY = Globals.AgentNumbers / 30;
-            var posibleValues = new int[proportionPoints];
-            for (var i = 0; i < proportionPoints; i++)
-            {
-                posibleValues[i] = i;
-            }
-
+            int proportionX = (int)(Globals.Steps / 10);
+            int proportionY = (int)yMaximum / 10;
+            var yValues = new int[11];
             var xValues = new int[11];
-            int counter = 0;
+            int counterY = 0;
+            int counterX = 0;
             for (var i = 0; i < 11; i++)
             {
-                xValues[i] = counter;
-                counter += proportionX;
+                xValues[i] = counterX;
+                counterX += proportionX;
+                yValues[i] = counterY;
+                counterY += proportionY;
             }
 
             var pointer = 0;
@@ -195,13 +193,13 @@ namespace Seirs.Graph
                 
             }
 
-            var separatorCount = Globals.Steps;
-            for (var i = 0; i <= separatorCount; i += separatorCount / proportionY)
+            var separatorCount = 10;
+            for (var i = 0; i <= separatorCount; i ++)
             {
                 var labelY = Instantiate(labelTemplateY);
                 labelY.SetParent(graphContainer, false);
                 labelY.gameObject.SetActive(true);
-                var normalizedValue = i * 1f / separatorCount;
+                var normalizedValue = i * 1f / 10;
                 labelY.anchoredPosition = new Vector2(-7f, normalizedValue * graphHeight);
                 labelY.GetComponent<Text>().text = Mathf.RoundToInt(normalizedValue * yMaximum).ToString();
                 gameObjectList.Add(labelY.gameObject);

@@ -19,6 +19,10 @@ public class AgentSimulationManager : MonoBehaviour
     [SerializeField] private Toggle masks;
     [SerializeField] private Transform plane;
     [SerializeField] private TMP_InputField stepsInput;
+    [SerializeField] private TMP_InputField radiusInput;
+    [SerializeField] private TMP_InputField mobilityInput;
+    [SerializeField] private TMP_InputField infectedInput;
+    [SerializeField] private TMP_InputField concentrationInput;
     public int simulationStep;
     private int size;
     private int stepsPerSec = 20;
@@ -190,6 +194,10 @@ public class AgentSimulationManager : MonoBehaviour
         couriers.enabled = true;
         masks.enabled = true;
         stepsInput.enabled = true;
+        radiusInput.enabled = true;
+        infectedInput.enabled = true;
+        mobilityInput.enabled = true;
+        concentrationInput.enabled = true;
         simulationStep = 0;
     }
 
@@ -207,6 +215,10 @@ public class AgentSimulationManager : MonoBehaviour
         }
 
         stepsInput.enabled = false;
+        radiusInput.enabled = false;
+        infectedInput.enabled = false;
+        mobilityInput.enabled = false;
+        concentrationInput.enabled = false;
         Globals.UpdateChartMethod();
         OnNextStep?.Invoke(agentState, (float) Globals.Parameters.Radius);
     }
