@@ -39,14 +39,14 @@ namespace Seirs
             agent.SetColor(st);
         }
 
-        public void OnNextSimStep(double[] agentState, float r)
+        public void OnNextSimStep(double[] agentState)
         {
             //Debug.Log(agentState.Length);
             //Debug.Log( string.Join("/",agentState));
             var id = 0;
-            for (var i = 1; i < agentState.Length; i += 3)
+            for (var i = 1; i < agentState.Length; i += 4)
             {
-                SetAgent(id, (float) agentState[i], (float) agentState[i + 1], r, (State) agentState[i + 2]);
+                SetAgent(id, (float) agentState[i], (float) agentState[i + 1], (float) agentState[i + 2], (State) agentState[i + 3]);
                 id++;
             }
         }

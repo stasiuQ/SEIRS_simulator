@@ -76,7 +76,7 @@ public class AgentSimulationManager : MonoBehaviour
     private static extern void SendDLL(int commonInstr, double[] commonParams, double[] commonAgentsState,
         int[] commonStats, double[] commonHomes);
 
-    public static event Action<double[], float> OnNextStep;
+    public static event Action<double[]> OnNextStep;
     public static event Action OnDestroyAgents;
     public static event Action<double[]> OnAddHomes;
     public static event Action OnDestroyHomes;
@@ -144,7 +144,7 @@ public class AgentSimulationManager : MonoBehaviour
         homesSize = (int) Globals.Parameters.LinearZones * (int) Globals.Parameters.LinearZones * 3 + 1;
         homes = new double[homesSize];
         homes[0] = homesSize;
-        size = 3 * (int) (Globals.Parameters.Size * Globals.Parameters.Size * Globals.Parameters.Concentration /
+        size = 4 * (int) (Globals.Parameters.Size * Globals.Parameters.Size * Globals.Parameters.Concentration /
                           (Math.PI * Globals.Parameters.Radius * Globals.Parameters.Radius)) + 1;
         agentState = new double[size];
         agentState[0] = size;
@@ -220,7 +220,7 @@ public class AgentSimulationManager : MonoBehaviour
         mobilityInput.enabled = false;
         concentrationInput.enabled = false;
         Globals.UpdateChartMethod();
-        OnNextStep?.Invoke(agentState, (float) Globals.Parameters.Radius);
+        OnNextStep?.Invoke(agentState);
     }
 
     public void ChangeParameters()
