@@ -145,8 +145,20 @@ bool Simulation::detectContact(Agent * a1, Agent * a2)
 	double dj = a1->get_j() - a2->get_j();
 	double distance = sqrt((di * di) + (dj * dj));
 
-	if (distance < (a1->get_radius() + a2->get_radius()))
-		return true;
+	if (a1->get_type() == SEIRS_type::I) {
+		if (distance < a1->get_radius())
+			return true;
+		else
+			return false;
+	}
+	else if (a2->get_type() == SEIRS_type::I) {
+		if (distance < a2->get_radius())
+			return true;
+		else
+			return false;
+	}
+	/*if (distance < (a1->get_radius() + a2->get_radius()))
+		return true; */
 	else
 		return false;
 }
